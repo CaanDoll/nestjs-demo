@@ -1,4 +1,4 @@
-import { LocalDateTransformer } from "king/base/transformer";
+import { LocalDateTransformer } from "king/base/typeorm-transformer";
 import { Column, Entity } from "typeorm";
 import BaseModel from "king/base/model";
 import * as Enum from "@module/order/index.enum";

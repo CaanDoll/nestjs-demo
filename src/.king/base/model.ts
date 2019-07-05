@@ -4,25 +4,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
-import { EnvTransformer, LocalDateTransformer } from "./transformer";
+import { EnvTransformer, LocalDateTransformer } from "./typeorm-transformer";
 
 export default class {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @CreateDateColumn({
-    comment: "添加时间",
-    type: "timestamp",
-    transformer: new LocalDateTransformer()
-  })
-  rowAddTime: Date;
-
-  @UpdateDateColumn({
-    comment: "更新时间",
-    type: "timestamp",
-    transformer: new LocalDateTransformer()
-  })
-  rowUpdateTime: Date;
 
   @Column({
     comment: "环境",
@@ -31,4 +17,21 @@ export default class {
     transformer: new EnvTransformer()
   })
   env: string;
+
+  @CreateDateColumn({
+    comment: "创建时间",
+    name: 'row_add_time',
+    type: "timestamp",
+    transformer: new LocalDateTransformer()
+  })
+  rowAddTime: Date;
+
+  @UpdateDateColumn({
+    comment: "更新时间",
+    name: 'row_update_time',
+    type: "timestamp",
+    transformer: new LocalDateTransformer()
+  })
+  rowUpdateTime: Date;
+
 }

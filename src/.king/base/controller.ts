@@ -1,15 +1,12 @@
-export interface IPageData { // findAndCountAll分页结果
-  rows: object[];
-  count: number;
-}
+export type IPageData = [any[],number];
 
-interface IResponse {
+export interface IResponse {
   code: number,
   message: string,
   data?: any,
 }
 
-interface IPageResponse extends IResponse{
+export interface IPageResponse extends IResponse{
   data: {
     list: object[],
     total: number,
@@ -31,8 +28,8 @@ export default abstract class {
       code: 200,
       message: 'success',
       data: {
-        list: data.rows,
-        total: data.count,
+        list: data[0],
+        total: data[1],
       },
     };
   }
@@ -45,4 +42,5 @@ export default abstract class {
     if (data) body.data = data;
     return body;
   }
+
 }

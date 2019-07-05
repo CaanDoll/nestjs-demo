@@ -2,7 +2,7 @@ import Product from "@module/product/index.model";
 import Officer from "@module/officer/index.model";
 import Pay from "@module/pay/index.model";
 import Refund from "@module/refund/index.model";
-import { LocalDateTransformer } from "king/base/transformer";
+import { LocalDateTransformer } from "king/base/typeorm-transformer";
 import {
   Column,
   Entity,
