@@ -14,7 +14,7 @@ async function bootstrap() {
     new ExpressAdapter(),
   );
 
-  const { npm_package_name,npm_package_version,npm_package_description } = process.env;
+  const { npm_package_name, npm_package_version, npm_package_description } = process.env;
   const options = new DocumentBuilder()
     .setTitle(npm_package_name)
     .setDescription(npm_package_description)

@@ -34,10 +34,10 @@ export default abstract class {
     };
   }
 
-  protected failed(errorKey: string, data?: object | object[]): IResponse {
+  protected failed(code, message, data?: object | object[]): IResponse {
     const body: IResponse = {
-      code: 200,
-      message: 'success',
+      code,
+      message,
     };
     if (data) body.data = data;
     return body;
