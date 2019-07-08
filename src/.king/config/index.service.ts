@@ -1,54 +1,81 @@
 import * as path from 'path';
-import { IsEnum, IsInt, IsNotEmpty,validate } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString, validate } from 'class-validator';
+const EnvConfig = require(path.join(process.cwd(),'src/config/index.interface')).default;
 
 enum ENV {
-  LOCAL='LOCAL',
-  DEVELOP='DEVELOP',
-  TEST='TEST',
-  PRODUCTION='PRODUCTION',
+  LOCAL='local',
+  DEVELOP='develop',
+  TEST='test',
+  PRODUCTION='production',
 }
 
-class EnvConfig {
-  @IsNotEmpty()
+class EnvVar {
+  @IsOptional()
   @IsEnum(ENV)
-  env: ENV;
+  NODE_ENV: ENV;
 
   @IsNotEmpty()
-  @IsInt()
-  port: number;
+  @IsString()
+  npm_package_name: string;
 
   @IsNotEmpty()
-  orm: object;
+  @IsString()
+  npm_package_code: string;
 
   @IsNotEmpty()
-  redis: object;
+  @IsString()
+  npm_package_version: string;
 
   @IsNotEmpty()
-  ftp: object;
+  @IsString()
+  npm_package_description: string;
 }
 
-export default class ConfigService{
-  private readonly envConfig: EnvConfig;
+async function validateEnvVar(){
+  const errors = await validate(Object.assign(new EnvVar(), process.env));
+  if (errors.length) {
+    setImmediate(()=>{
+      process.exit(1);
+    });
+    throw new Error(`EnvVar validation error: ${JSON.stringify(errors)}`);
+  }
+}
+
+validateEnvVar();
+
+
+export class ConfigService{
+  private readonly envConfig;
 
   constructor() {
     const env = process.env.NODE_ENV as ENV || ENV.LOCAL;
     const config = require(path.join(process.cwd(),'src/config',env)).default;
-    config.env = env;
-    this.envConfig = config;
-    this.validateInput(config);
+    this.validateEnvConfig(config);
+    const { npm_package_name, npm_package_version, npm_package_description } = process.env;
+    this.envConfig = {
+      ...config,
+      env,
+      npm_package_name,
+      npm_package_version,
+      npm_package_description,
+    };
   }
 
-  get(key: string): string {
+  get(key: string): any {
     return this.envConfig[key];
   }
 
-  private async validateInput(envConfig: EnvConfig): Promise<void> {
-    const errors = await validate(Object.assign(new EnvConfig(), envConfig));
+  private async validateEnvConfig(envConfig): Promise<void> {
+    const errors = await validate(Object.assign(new EnvConfig(), envConfig),{
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
     if (errors.length) {
       setImmediate(()=>{
         process.exit(1);
       });
-      throw new Error(`Config validation error: ${errors}`);
+      throw new Error(`EnvConfig validation error: ${JSON.stringify(errors)}`);
     }
   }
+
 }

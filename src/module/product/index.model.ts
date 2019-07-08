@@ -1,8 +1,8 @@
 import { Column, Entity } from "typeorm";
-import BaseModel from "king/base/model";
+import { BaseModel } from "king/base/model";
 
 @Entity()
-export default class Product extends BaseModel {
+export class Product extends BaseModel {
   @Column({
     name: "order_product_id",
     type: "varchar",

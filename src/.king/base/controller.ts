@@ -1,3 +1,5 @@
+const {npm_package_code} = process.env;
+
 export type IPageData = [any[],number];
 
 export interface IResponse {
@@ -8,12 +10,12 @@ export interface IResponse {
 
 export interface IPageResponse extends IResponse{
   data: {
-    list: object[],
+    list: any[],
     total: number,
   }
 }
 
-export default abstract class {
+export abstract class BaseController{
   protected success(data?: object | object[] | null): IResponse {
     const body: IResponse = {
       code: 200,
@@ -34,9 +36,9 @@ export default abstract class {
     };
   }
 
-  protected failed(code, message, data?: object | object[]): IResponse {
+  protected failed(code: number, message: string, data?: object | object[]): IResponse {
     const body: IResponse = {
-      code,
+      code: Number(`${npm_package_code}${code}`),
       message,
     };
     if (data) body.data = data;

@@ -1,10 +1,10 @@
-import { LocalDateTransformer } from "king/base/typeorm-transformer";
+import { LocalDateTransformer } from "king/util/typeorm-transformer";
 import { Column, Entity } from "typeorm";
-import BaseModel from "king/base/model";
+import { BaseModel } from "king/base/model";
 import * as Enum from "@module/order/index.enum";
 
 @Entity()
-export default class Pay extends BaseModel {
+export class Pay extends BaseModel {
   @Column({
     name: "order_pay_id",
     type: "varchar",

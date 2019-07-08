@@ -3,10 +3,12 @@ import {
   ExpressAdapter,
   NestExpressApplication,
 } from '@nestjs/platform-express';
-import AppModule from './app.module';
+import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import ValidationPipe from 'king/base/validation-pipe';
+import { ValidationPipe } from 'king/util/validation-pipe';
 import { startLogger } from 'king/middleware/entry';
+import { sessionMiddlewares } from 'king/auth/session.middleware';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
@@ -14,20 +16,26 @@ async function bootstrap() {
     new ExpressAdapter(),
   );
 
-  const { npm_package_name, npm_package_version, npm_package_description } = process.env;
-  const options = new DocumentBuilder()
-    .setTitle(npm_package_name)
-    .setDescription(npm_package_description)
-    .setVersion(npm_package_version)
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('swagger', app, document);
+  const configService = app
+    .get('ConfigService');
+
+  if(configService.get('env') !== 'production'){
+    const options = new DocumentBuilder()
+      .setTitle(configService.get('npm_package_name'))
+      .setDescription(configService.get('npm_package_description'))
+      .setVersion(configService.get('npm_package_version'))
+      .build();
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup('swagger', app, document);
+  }
 
   app.use(startLogger);
 
+  app.use(...sessionMiddlewares(configService.get('redis')));
+
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(3000);
-
+  await app.listen(configService.get('port'));
+  Logger.log(`app listening on ${configService.get('port')}, env: ${configService.get('env')}`);
 }
 bootstrap();

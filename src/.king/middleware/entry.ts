@@ -6,6 +6,6 @@ import { Logger }from '@nestjs/common' ;
 // TODO sentry
 
 export const startLogger = async (req, res, next) => {
-  Logger.log(req.path);
-  await next();
+  Logger.log(req.url);
+  next();
 };

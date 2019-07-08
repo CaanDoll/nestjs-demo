@@ -4,9 +4,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
-import { EnvTransformer, LocalDateTransformer } from "./typeorm-transformer";
+import { EnvTransformer, LocalDateTransformer } from "../util/typeorm-transformer";
 
-export default class {
+export abstract class BaseModel{
   @PrimaryGeneratedColumn()
   id: number;
 

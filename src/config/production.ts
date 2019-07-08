@@ -24,9 +24,4 @@ export default {
     password: "kunlun_2019$ABC",
     db: 0
   },
-  ftp: {
-    host: "10.8.250.34",
-    user: "ftpuser",
-    password: "LdKCbCM70iormeQ"
-  }
 };

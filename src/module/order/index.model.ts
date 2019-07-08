@@ -1,19 +1,19 @@
-import Product from "@module/product/index.model";
-import Officer from "@module/officer/index.model";
-import Pay from "@module/pay/index.model";
-import Refund from "@module/refund/index.model";
-import { LocalDateTransformer } from "king/base/typeorm-transformer";
+import { Product } from "@module/product/index.model";
+import { Officer } from "@module/officer/index.model";
+import { Pay } from "@module/pay/index.model";
+import { Refund } from "@module/refund/index.model";
+import { LocalDateTransformer } from "king/util/typeorm-transformer";
 import {
   Column,
   Entity,
   JoinColumn,
   OneToOne,
 } from "typeorm";
-import BaseModel from "king/base/model";
+import { BaseModel } from "king/base/model";
 import * as Enum from "./index.enum";
 
 @Entity()
-export default class Order extends BaseModel {
+export class Order extends BaseModel {
   @Column({
     comment: "订单号",
     type: "varchar",

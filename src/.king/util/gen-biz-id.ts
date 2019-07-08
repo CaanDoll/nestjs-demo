@@ -21,9 +21,7 @@ function random() {
 }
 
 const {npm_package_code} = process.env;
-if(!npm_package_code){
-  throw new Error('请在package.json指定子系统code');
-}
-export default ()=>{
+
+export const genBizId = ()=>{
   return `100${getCurrentTime()}${npm_package_code}0000${random()}`;
 };

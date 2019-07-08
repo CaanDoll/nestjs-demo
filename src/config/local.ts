@@ -22,11 +22,7 @@ export default {
     host: "10.10.4.101",
     port: "31104",
     password: "kunlun_2019$ABC",
-    db: 0
+    db: 0,
+    prefix: 'koa:sess:',
   },
-  ftp: {
-    host: "10.8.250.34",
-    user: "ftpuser",
-    password: "LdKCbCM70iormeQ"
-  }
 };

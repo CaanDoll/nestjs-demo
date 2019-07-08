@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import genBizId from "../util/gen-biz-id";
+import { genBizId } from "./gen-biz-id";
 import * as dayjs from 'dayjs';
 
 export class LocalDateTransformer implements ValueTransformer {

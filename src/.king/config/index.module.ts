@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import ConfigService from './index.service';
+import { ConfigService } from './index.service';
 
 @Module({
   providers: [
@@ -10,4 +10,4 @@ import ConfigService from './index.service';
   ],
   exports: [ConfigService],
 })
-export default class ConfigModule{}
+export class ConfigModule{}
