@@ -4,7 +4,7 @@ export class SessionGuard implements CanActivate {
     const httpContext = context.switchToHttp();
     const request = httpContext.getRequest();
     try {
-      if (request.session.passport.user)
+      // if (request.session.passport.user)
         return true;
     } catch (e) {
       throw new UnauthorizedException();
