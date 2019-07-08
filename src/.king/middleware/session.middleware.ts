@@ -13,7 +13,7 @@ passport.deserializeUser(async (user, done) => {
   }
 });
 
-export const sessionMiddlewares = redisConfig => {
+export const opSessionMiddlewares = redisConfig => {
   const store = new RedisStore(redisConfig);
   return [
     session({
@@ -27,4 +27,20 @@ export const sessionMiddlewares = redisConfig => {
     passport.session(),
   ]
 };
+
+export const ucSessionMiddlewares = redisConfig => {
+  const store = new RedisStore(redisConfig);
+  return [
+    session({
+      store,
+      name: "ucsid",
+      secret: 'kunlun-session-secret',
+      resave: false,
+      saveUninitialized: true,
+    }),
+    passport.initialize(),
+    passport.session(),
+  ]
+};
+
 

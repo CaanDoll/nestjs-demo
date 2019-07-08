@@ -2,8 +2,8 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { OrderService } from './index.service';
 import { OpIndexDto } from './index.dto';
 import { BaseController, IPageResponse } from 'king/base/controller';
-import { SessionGuard } from 'king/auth/session.guard';
-import { SessionUser } from 'king/auth/session.decorator';
+import { SessionGuard } from 'king/middleware/session.guard';
+import { SessionUser } from 'king/middleware/session.decorator';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 @Controller('/api/v1')

@@ -6,10 +6,12 @@ import {
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from 'king/util/validation-pipe';
-import { startLogger } from 'king/middleware/entry';
-import { sessionMiddlewares } from 'king/auth/session.middleware';
+import { startLoggerMiddleware } from 'king/middleware/start-logger.middleware';
 import { Logger } from '@nestjs/common';
-
+// TODO log4js elk
+// TODO passport session redis
+// TODO axios
+// TODO sentry
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
     AppModule,
@@ -29,9 +31,7 @@ async function bootstrap() {
     SwaggerModule.setup('swagger', app, document);
   }
 
-  app.use(startLogger);
-
-  app.use(...sessionMiddlewares(configService.get('redis')));
+  app.use(startLoggerMiddleware);
 
   app.useGlobalPipes(new ValidationPipe());
 
