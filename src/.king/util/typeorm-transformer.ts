@@ -1,10 +1,10 @@
-import { ValueTransformer } from "typeorm";
-import { genBizId } from "./gen-biz-id";
+import { ValueTransformer } from 'typeorm';
+import { genBizId } from './gen-biz-id';
 import * as dayjs from 'dayjs';
 
 export class LocalDateTransformer implements ValueTransformer {
   public from(value: string): string {
-    return dayjs(value).format("YYYY-MM-DD HH:mm:ss");
+    return dayjs(value).format('YYYY-MM-DD HH:mm:ss');
   }
 
   public to(value: Date): Date {

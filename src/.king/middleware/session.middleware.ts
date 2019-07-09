@@ -18,14 +18,14 @@ export const opSessionMiddlewares = redisConfig => {
   return [
     session({
       store,
-      name: "opsid",
+      name: 'opsid',
       secret: 'kunlun-session-secret',
       resave: false,
       saveUninitialized: true,
     }),
     passport.initialize(),
     passport.session(),
-  ]
+  ];
 };
 
 export const ucSessionMiddlewares = redisConfig => {
@@ -33,14 +33,12 @@ export const ucSessionMiddlewares = redisConfig => {
   return [
     session({
       store,
-      name: "ucsid",
+      name: 'ucsid',
       secret: 'kunlun-session-secret',
       resave: false,
       saveUninitialized: true,
     }),
     passport.initialize(),
     passport.session(),
-  ]
+  ];
 };
-
-

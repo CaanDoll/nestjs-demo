@@ -5,9 +5,9 @@
  * @enum API API API接口
  */
 export enum OrderCreatorType {
-  USER = "USER",
-  ADMIN = "ADMIN",
-  API = "API"
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+  API = 'API',
 }
 
 /**
@@ -24,13 +24,13 @@ export enum OrderCreatorType {
  * Q: 不存在支付过期
  */
 export enum OrderState {
-  CREATE = "CREATE",
-  WAIT_PAY = "WAIT_PAY",
-  POST_PAID = "POST_PAID",
-  PAID = "PAID",
-  DUMPED = "DUMPED",
-  COMPLETE = "COMPLETE",
-  CLOSED = "CLOSED"
+  CREATE = 'CREATE',
+  WAIT_PAY = 'WAIT_PAY',
+  POST_PAID = 'POST_PAID',
+  PAID = 'PAID',
+  DUMPED = 'DUMPED',
+  COMPLETE = 'COMPLETE',
+  CLOSED = 'CLOSED',
 }
 /**
  * 订单状态
@@ -43,12 +43,12 @@ export enum OrderState {
  * @enum CLOSED CLOSED 6.退款成功
  */
 export enum OrderState2 {
-  CREATE = "CREATE",
-  LAUNCHED_PAY = "LAUNCHED_PAY",
-  PAID = "PAID",
-  DUMPED = "DUMPED",
-  COMPLETE = "COMPLETE",
-  CLOSED = "CLOSED"
+  CREATE = 'CREATE',
+  LAUNCHED_PAY = 'LAUNCHED_PAY',
+  PAID = 'PAID',
+  DUMPED = 'DUMPED',
+  COMPLETE = 'COMPLETE',
+  CLOSED = 'CLOSED',
 }
 
 /**
@@ -58,9 +58,9 @@ export enum OrderState2 {
  * @enum RENEWAL RENEWAL 续期
  */
 export enum OrderType {
-  NEW = "NEW",
-  UPGRADE = "UPGRADE",
-  RENEWAL = "RENEWAL"
+  NEW = 'NEW',
+  UPGRADE = 'UPGRADE',
+  RENEWAL = 'RENEWAL',
 }
 
 /**
@@ -71,10 +71,10 @@ export enum OrderType {
  * @enum COMPLETE COMPLETE 已分配
  */
 export enum AllotState {
-  WAIT_ALLOT = "WAIT_ALLOT",
-  ALLOTTING = "ALLOTTING",
-  ALLOT_FAIL = "ALLOT_FAIL",
-  COMPLETE = "COMPLETE"
+  WAIT_ALLOT = 'WAIT_ALLOT',
+  ALLOTTING = 'ALLOTTING',
+  ALLOT_FAIL = 'ALLOT_FAIL',
+  COMPLETE = 'COMPLETE',
 }
 
 /**
@@ -82,7 +82,7 @@ export enum AllotState {
  * @enum OFFICER OFFICER 工单分配
  */
 export enum AllotWay {
-  OFFICER = "OFFICER"
+  OFFICER = 'OFFICER',
 }
 
 /**
@@ -93,10 +93,10 @@ export enum AllotWay {
  * @enum BALANCE BALANCE 余额支付
  */
 export enum OrderPayType {
-  OFFLINE = "OFFLINE",
-  WECHAT = "WECHAT",
-  ALIPAY = "ALIPAY",
-  BALANCE = "BALANCE"
+  OFFLINE = 'OFFLINE',
+  WECHAT = 'WECHAT',
+  ALIPAY = 'ALIPAY',
+  BALANCE = 'BALANCE',
 }
 
 /**
@@ -106,9 +106,9 @@ export enum OrderPayType {
  * @enum PAID PAID 已支付
  */
 export enum OrderPayState {
-  NOT_PAY = "NOT_PAY",
-  PAY_FAIL = "PAY_FAIL",
-  PAID = "PAID"
+  NOT_PAY = 'NOT_PAY',
+  PAY_FAIL = 'PAY_FAIL',
+  PAID = 'PAID',
 }
 
 /**
@@ -120,11 +120,11 @@ export enum OrderPayState {
  * @enum AGENT AGENT 代理商价
  */
 export enum OrderQuotationType {
-  NORMAL = "NORMAL",
-  ONLINE = "ONLINE",
-  OFFLINE = "OFFLINE",
-  DISCOUNT = "DISCOUNT",
-  AGENT = "AGENT"
+  NORMAL = 'NORMAL',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE',
+  DISCOUNT = 'DISCOUNT',
+  AGENT = 'AGENT',
 }
 
 /**
@@ -134,9 +134,9 @@ export enum OrderQuotationType {
  * @enum ADMIN ADMIN
  */
 export enum OrderSource {
-  PC = "PC",
-  H5 = "H5",
-  ADMIN = "ADMIN"
+  PC = 'PC',
+  H5 = 'H5',
+  ADMIN = 'ADMIN',
 }
 
 /**
@@ -144,7 +144,7 @@ export enum OrderSource {
  */
 export enum PayPreOrPost {
   PRE = 0,
-  POST = 1
+  POST = 1,
 }
 
 /**
@@ -156,11 +156,11 @@ export enum PayPreOrPost {
  * @enum LOCAL LOCAL local 本地环境
  */
 export enum Environment {
-  DEV = "development",
-  PROD = "production",
-  TEST = "test",
-  PRE_PUBLISH = "prepublish",
-  LOCAL = "local"
+  DEV = 'development',
+  PROD = 'production',
+  TEST = 'test',
+  PRE_PUBLISH = 'prepublish',
+  LOCAL = 'local',
 }
 
 export enum ErrorCode {
@@ -184,7 +184,7 @@ export enum ErrorCode {
 
   INVALID_ORDER_ADJUST_PRICE,
   INVALID_PRODUCT,
-  INVALID_ACTION
+  INVALID_ACTION,
 }
 
 export enum ErrorCode2 {
@@ -219,7 +219,7 @@ export enum ErrorCode2 {
   MISS_PRECONDITION,
 
   FAIL_CHECK_PRECONDITION,
-  NO_REFUND_PRODUCT
+  NO_REFUND_PRODUCT,
 }
 
 /**
@@ -229,10 +229,10 @@ export enum ErrorCode2 {
  * @enum REFUND REFUND 已退款
  */
 export enum RefundState {
-  APPLIED = "APPLIED",
-  RESOLVED = "RESOLVED",
-  REJECTED = "REJECTED",
-  REFUND = "REFUND"
+  APPLIED = 'APPLIED',
+  RESOLVED = 'RESOLVED',
+  REJECTED = 'REJECTED',
+  REFUND = 'REFUND',
 }
 
 /**
@@ -240,8 +240,8 @@ export enum RefundState {
  * @enum REJECTED REJECTED 已驳回
  */
 export enum RefundResult {
-  RESOLVED = "RESOLVED",
-  REJECTED = "REJECTED"
+  RESOLVED = 'RESOLVED',
+  REJECTED = 'REJECTED',
 }
 
 /**
@@ -249,13 +249,13 @@ export enum RefundResult {
  * NOT_CONTRACT NOT_CONTRACT 未续约
  */
 export enum ContractState {
-  CONTRACT = "CONTRACT",
-  NOT_CONTRACT = "NOT_CONTRACT"
+  CONTRACT = 'CONTRACT',
+  NOT_CONTRACT = 'NOT_CONTRACT',
 }
 
 export enum IfInvoice {
   YES = 0,
-  NO = 1
+  NO = 1,
 }
 
 /**
@@ -268,11 +268,10 @@ export enum IfInvoice {
  * @enum WILL_EXPIRED_NOTIFY_MANAGER WILL_EXPIRED_NOTIFY_MANAGER 订单即将过期
  */
 export enum OrderMailDataType {
-  ORDER_PAID = "ORDER_PAID",
-  POST_PAY_ORDER_OKAY = "ORDER_POST_PAY_OKAY",
-  REFUND_OKAY = "REFUND_OKAY",
-  ORDER_COMPLETE = "ORDER_COMPLETE",
-  EXPIRED_TO_USER = "EXPIRED_TO_USER",
-  EXPIRED_TO_MANAGER = "EXPIRED_TO_MANAGER"
+  ORDER_PAID = 'ORDER_PAID',
+  POST_PAY_ORDER_OKAY = 'ORDER_POST_PAY_OKAY',
+  REFUND_OKAY = 'REFUND_OKAY',
+  ORDER_COMPLETE = 'ORDER_COMPLETE',
+  EXPIRED_TO_USER = 'EXPIRED_TO_USER',
+  EXPIRED_TO_MANAGER = 'EXPIRED_TO_MANAGER',
 }
-

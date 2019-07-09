@@ -6,7 +6,7 @@ export default class {
   port: number;
 
   @IsNotEmpty()
-  orm: object;
+  typeorm: object;
 
   @IsNotEmpty()
   redis: object;

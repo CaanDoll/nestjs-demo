@@ -20,8 +20,8 @@ function random() {
     .substr(2);
 }
 
-const {npm_package_code} = process.env;
+const { npm_package_code } = process.env;
 
-export const genBizId = ()=>{
+export const genBizId = () => {
   return `100${getCurrentTime()}${npm_package_code}0000${random()}`;
 };

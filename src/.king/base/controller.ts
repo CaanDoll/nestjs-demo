@@ -1,21 +1,25 @@
-const {npm_package_code} = process.env;
+import * as path from 'path';
+const errorModule = require(path.join(process.cwd(), 'src/error'));
+const error = errorModule.default;
 
-export type IPageData = [any[],number];
+const { npm_package_code } = process.env;
+
+export type IPageData = [any[], number];
 
 export interface IResponse {
-  code: number,
-  message: string,
-  data?: any,
+  code: number | string;
+  message: string;
+  data?: any;
 }
 
-export interface IPageResponse extends IResponse{
+export interface IPageResponse extends IResponse {
   data: {
     list: any[],
     total: number,
-  }
+  };
 }
 
-export abstract class BaseController{
+export abstract class BaseController {
   protected success(data?: object | object[] | null): IResponse {
     const body: IResponse = {
       code: 200,
@@ -36,10 +40,10 @@ export abstract class BaseController{
     };
   }
 
-  protected failed(code: number, message: string, data?: object | object[]): IResponse {
+  protected failed(errorType: string, data?: object | object[]): IResponse {
     const body: IResponse = {
-      code: Number(`${npm_package_code}${code}`),
-      message,
+      code: `${npm_package_code}${errorType}`,
+      message: error[errorType],
     };
     if (data) body.data = data;
     return body;
