@@ -1,3 +1,6 @@
+import { Header } from '@nestjs/common';
+import { IColumn, json2excel } from 'king/util/json2excel';
+import * as moment from 'moment';
 import * as path from 'path';
 const errorModule = require(path.join(process.cwd(), 'src/error'));
 const error = errorModule.default;
@@ -38,6 +41,13 @@ export abstract class BaseController {
         total: data[1],
       },
     };
+  }
+
+  @Header('Content-Type', 'text/csv')
+  @Header('Content-disposition', 'text/csv')
+  protected successXlsx(columns: IColumn[], list: any[], title): string {
+    // this.attachment(`${title}_${moment().format('YYYYMMDDhhmmss')}.csv`);
+    return json2excel(columns, list);
   }
 
   protected failed(errorType: string, data?: object | object[]): IResponse {

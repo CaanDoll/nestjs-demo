@@ -1,7 +1,7 @@
+import * as Enum from '@module/order/index.enum';
+import { BaseModel } from 'king/base/model';
 import { BizIdTransformer, LocalDateTransformer } from 'king/util/typeorm-transformer';
 import { Column, Entity } from 'typeorm';
-import { BaseModel } from 'king/base/model';
-import * as Enum from '@module/order/index.enum';
 
 @Entity()
 export class Officer extends BaseModel {

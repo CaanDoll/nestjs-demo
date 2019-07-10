@@ -1,7 +1,8 @@
-import { Product } from '@module/product/index.model';
 import { Officer } from '@module/officer/index.model';
 import { Pay } from '@module/pay/index.model';
+import { Product } from '@module/product/index.model';
 import { Refund } from '@module/refund/index.model';
+import { BaseModel } from 'king/base/model';
 import { LocalDateTransformer } from 'king/util/typeorm-transformer';
 import {
   Column,
@@ -9,7 +10,6 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm';
-import { BaseModel } from 'king/base/model';
 import * as Enum from './index.enum';
 
 @Entity()

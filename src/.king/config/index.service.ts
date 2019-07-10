@@ -1,5 +1,5 @@
-import * as path from 'path';
 import { IsEnum, IsNotEmpty, IsOptional, IsString, validate } from 'class-validator';
+import * as path from 'path';
 const EnvConfig = require(path.join(process.cwd(), 'src/config/index.interface')).default;
 
 enum ENV {

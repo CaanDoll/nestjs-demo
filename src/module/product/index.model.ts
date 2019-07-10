@@ -1,5 +1,5 @@
-import { Column, Entity } from 'typeorm';
 import { BaseModel } from 'king/base/model';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class Product extends BaseModel {

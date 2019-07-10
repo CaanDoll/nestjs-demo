@@ -19,7 +19,6 @@ const config: Config = {
     entities: [ 'src/module/**/*.model.ts' ],
     timezone: '+00:00',
   },
-  // 开发环境
   redis: {
     host: '10.10.4.101',
     port: '31104',

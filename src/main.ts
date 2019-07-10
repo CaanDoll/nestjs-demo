@@ -1,17 +1,16 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   ExpressAdapter,
   NestExpressApplication,
 } from '@nestjs/platform-express';
-import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as cookieParser from 'cookie-parser';
+import { startLoggerMiddleware } from 'king/middleware/logger';
 import { ValidationPipe } from 'king/util/validation-pipe';
-import { startLoggerMiddleware } from 'king/middleware/start-logger.middleware';
-import { Logger } from '@nestjs/common';
-import * as cookieParser from 'cookie-parser'
+import { AppModule } from './app.module';
 
 // TODO log4js elk
-// TODO passport session redis
 // TODO axios
 // TODO sentry
 async function bootstrap() {
@@ -28,13 +27,14 @@ async function bootstrap() {
       .setTitle(configService.get('npm_package_name'))
       .setDescription(configService.get('npm_package_description'))
       .setVersion(configService.get('npm_package_version'))
+      .addBearerAuth('token', 'header')
       .build();
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('swagger', app, document);
   }
 
-  app.use(cookieParser());
   app.use(startLoggerMiddleware);
+  app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(configService.get('port'));
