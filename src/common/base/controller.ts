@@ -1,9 +1,6 @@
-import { Header, Response } from '@nestjs/common';
-import { IColumn, json2excel } from 'king/util/json2excel';
-import * as moment from 'moment';
-import * as path from 'path';
-const errorModule = require(path.join(process.cwd(), 'src/error'));
-const error = errorModule.default;
+import { IColumn, json2excel } from '@common/util/json2excel';
+import { error, ErrorType } from '@error/index';
+import { Header } from '@nestjs/common';
 
 const { npm_package_code } = process.env;
 
@@ -44,12 +41,12 @@ export abstract class BaseController {
   }
 
   @Header('Content-Type', 'text/csv')
-  protected successXlsx(columns: IColumn[], list: any[], title, @Response() res: Response): string {
-    res.headers.set('Content-disposition', `filename=${title}_${moment().format('YYYYMMDDhhmmss')}.csv`);
+  protected successXlsx(columns: IColumn[], list: any[], title): string {
+    // res.headers.set('Content-disposition', `filename=${title}_${moment().format('YYYYMMDDhhmmss')}.csv`);
     return json2excel(columns, list);
   }
 
-  protected failed(errorType: string, data?: object | object[]): IResponse {
+  protected failed(errorType: ErrorType, data?: object | object[]): IResponse {
     const body: IResponse = {
       code: `${npm_package_code}${errorType}`,
       message: error[errorType],

@@ -1,8 +1,8 @@
+import { ConfigModule } from '@common/config/index.module';
+import { ConfigService } from '@common/config/index.service';
 import { OrderModule } from '@module/order/index.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { ConfigModule } from 'king/config/index.module';
-import { ConfigService } from 'king/config/index.service';
 import { RedisModule } from 'nestjs-redis';
 
 @Module({
@@ -20,7 +20,5 @@ import { RedisModule } from 'nestjs-redis';
       useFactory: (configService: ConfigService) => configService.get('redis'),
     }),
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

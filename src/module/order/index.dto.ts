@@ -1,8 +1,10 @@
+import { BasePageDto } from '@common/base/dto';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import {
   ArrayContains,
   ArrayMaxSize,
-  ArrayNotEmpty, IsArray, IsBoolean,
+  IsArray,
+  IsBoolean,
   IsEnum, IsInt,
   IsNotEmpty,
   IsNumber,
@@ -11,7 +13,6 @@ import {
   Length,
   Min,
 } from 'class-validator';
-import { BasePageDto } from 'king/base/dto';
 
 /**
  * 订单创建人类型
@@ -270,6 +271,13 @@ export class OpIndexDto extends BasePageDto {
   managerDepartmentId?: string;
 }
 
+export class OpIndexByOrderIdsDto {
+  @IsNotEmpty()
+  @ApiModelProperty()
+  @IsString()
+  orderIds: string;
+}
+
 export class OpShowDto {
   @IsNotEmpty()
   @ApiModelProperty()
@@ -344,4 +352,16 @@ export class OpCreateDto {
   @ApiModelPropertyOptional()
   @IsBoolean()
   isPostPay: boolean;
+}
+
+export class OpCheckPreconditionDto {
+  @IsNotEmpty()
+  @ApiModelProperty()
+  @IsString()
+  appid: string;
+
+  @IsNotEmpty()
+  @ApiModelProperty()
+  @IsString()
+  content: string;
 }

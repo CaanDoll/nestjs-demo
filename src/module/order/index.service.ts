@@ -1,14 +1,15 @@
-import { HttpService, Injectable } from '@nestjs/common';
+import { IntegrationService } from '@integration/index.service';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, Repository } from 'typeorm';
+import { Between, In, Repository } from 'typeorm';
 import { Order } from './index.model';
 
 @Injectable()
 export class OrderService {
   constructor(
+    private readonly integrationService: IntegrationService,
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
-    private readonly httpService: HttpService,
   ) {}
 
   async opIndex(query) {
@@ -69,6 +70,15 @@ export class OrderService {
     });
   }
 
+  async opIndexByOrderIds(query) {
+    const { orderIds } = query;
+    return this.orderRepository.findOne({
+      where: {
+        orderId: In(orderIds.split(',')),
+      },
+    });
+  }
+
   async opShow(params) {
     const { orderId } = params;
     return this.orderRepository.findOne({
@@ -78,21 +88,49 @@ export class OrderService {
     });
   }
 
-  async opCreate(body) {
-    const res = await this.httpService.get('https://www.baidu.com');
-    console.log(res);
-    await this.orderRepository.findAndCount({
-      where: {
-
-      },
+  async opCreate(body, user) {
+    const {
+      merchantBatchId,
+      paidRedirectUrl,
+      source,
+      isPostPay,
+      orders,
+    } = body;
+    const {
+      userId,
+      name,
+    } = user;
+    const { data: productPriceData } = await this.integrationService.postProductPriceByCode({
+      codes: orders.map(
+        ({
+           isForeign,
+           itemId: productPackageId,
+           itemCode: code,
+           unit,
+           type,
+           priceType,
+           unitCount,
+         }) => ({
+          isForeign,
+          productPackageId,
+          code,
+          unit,
+          userId,
+          unitCount,
+          priceType: priceType || type,
+        }),
+      ),
     });
+    for (const productPriceItem of productPriceData) {
+      console.log(1);
+    }
   }
 
-  async opCheckPrecondition(query) {
-    return this.orderRepository.findAndCount({
-      where: {
-
-      },
+  async opCheckPrecondition(body) {
+    const { data: productLineData } = await this.integrationService.getProductLine(body.appid);
+    return this.integrationService.postOpenapiCallback({
+      ...body,
+      url: productLineData.preUrl,
     });
   }
 

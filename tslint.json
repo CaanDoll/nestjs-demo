@@ -5,7 +5,6 @@
   "rules": {
     "linebreak-style": false,
     "interface-name": [ true, "always-prefix" ],
-    "no-var-requires": false,
     "ordered-imports": true
   }
 }

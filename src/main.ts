@@ -6,8 +6,8 @@ import {
 } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
-import { startLoggerMiddleware } from 'king/middleware/logger';
-import { ValidationPipe } from 'king/util/validation-pipe';
+import { startLoggerMiddleware } from '@common/middleware/logger';
+import { ValidationPipe } from '@common/util/validation-pipe';
 import { AppModule } from './app.module';
 
 // TODO log4js elk

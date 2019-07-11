@@ -1,10 +1,6 @@
-import Config from './index.interface';
+import { Config } from './index.interface';
 
-const integration = {
-  knight: 'http://10.8.241.147:8000/knight',
-  customer: 'http://10.8.241.147:8000/customer',
-  uploadUrl: 'http://10.10.4.101:32720',
-};
+const KONG_URL = 'http://kong-proxy:8000';
 
 const config: Config = {
   port: 4000,
@@ -21,10 +17,22 @@ const config: Config = {
   },
   redis: {
     host: '10.10.4.101',
-    port: '31104',
+    port: 31104,
     password: 'kunlun_2019$ABC',
     db: 0,
-    prefix: 'koa:sess:',
+    keyPrefix: 'koa:sess:',
+  },
+  integration: {
+    product: `${KONG_URL}/product`,
+    customer: `${KONG_URL}/customer`,
+    finance: `${KONG_URL}/finance`,
+    officer: `${KONG_URL}/officer`,
+    richman: `${KONG_URL}/richman`,
+    mailboy: `${KONG_URL}/mailboy`,
+    actions: `${KONG_URL}/actions`,
+    knight: `${KONG_URL}/knight`,
+    openapi: 'http://openapi-master:4000',
+    uploadUrl: 'http://oss-master:4000',
   },
 };
 

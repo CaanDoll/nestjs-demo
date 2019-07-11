@@ -1,12 +1,12 @@
+import { Config } from '@config/index.interface';
 import { IsEnum, IsNotEmpty, IsOptional, IsString, validate } from 'class-validator';
 import * as path from 'path';
-const EnvConfig = require(path.join(process.cwd(), 'src/config/index.interface')).default;
 
 enum ENV {
-  LOCAL= 'local',
-  DEVELOP= 'develop',
-  TEST= 'test',
-  PRODUCTION= 'production',
+  local= 'local',
+  develop= 'develop',
+  test= 'test',
+  production= 'production',
 }
 
 class EnvVar {
@@ -44,14 +44,14 @@ async function validateEnvVar() {
 validateEnvVar();
 
 export class ConfigService {
-  private readonly envConfig;
+  private readonly config: Config;
 
   constructor() {
-    const env = process.env.NODE_ENV as ENV || ENV.LOCAL;
+    const env = process.env.NODE_ENV as ENV || ENV.local;
     const config = require(path.join(process.cwd(), 'src/config', env)).default;
     this.validateEnvConfig(config);
     const { npm_package_name, npm_package_version, npm_package_description } = process.env;
-    this.envConfig = {
+    this.config = {
       ...config,
       env,
       npm_package_name,
@@ -60,12 +60,12 @@ export class ConfigService {
     };
   }
 
-  get(key: string): any {
-    return this.envConfig[key];
+  get(key: keyof Config): any {
+    return this.config[key];
   }
 
-  private async validateEnvConfig(envConfig): Promise<void> {
-    const errors = await validate(Object.assign(new EnvConfig(), envConfig), {
+  private async validateEnvConfig(config): Promise<void> {
+    const errors = await validate(Object.assign(new Config(), config), {
       whitelist: true,
       forbidNonWhitelisted: true,
     });
@@ -73,7 +73,7 @@ export class ConfigService {
       setImmediate(() => {
         process.exit(1);
       });
-      throw new Error(`EnvConfig validation error: ${JSON.stringify(errors)}`);
+      throw new Error(`Config validation error: ${JSON.stringify(errors)}`);
     }
   }
 

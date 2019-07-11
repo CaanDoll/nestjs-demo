@@ -5,14 +5,27 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "es2018",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "king/*": ["./src/.king/*"],
-      "@module/*": ["./src/module/*"]
+      "@common/*": [
+        "./src/common/*"
+      ],
+      "@config/*": [
+        "./src/config/*"
+      ],
+      "@error/*": [
+        "./src/error/*"
+      ],
+      "@integration/*": [
+        "./src/integration/*"
+      ],
+      "@module/*": [
+        "./src/module/*"
+      ]
     }
   },
   "exclude": ["node_modules"]

@@ -1,13 +1,31 @@
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { IsInt, IsNotEmpty } from 'class-validator';
+import { RedisModuleOptions } from 'nestjs-redis';
 
-export default class {
+export class Integration {
+  product: string;
+  customer: string;
+  finance: string;
+  officer: string;
+  richman: string;
+  mailboy: string;
+  actions: string;
+  knight: string;
+  openapi: string;
+  uploadUrl: string;
+}
+
+export class Config {
   @IsNotEmpty()
   @IsInt()
   port: number;
 
   @IsNotEmpty()
-  typeorm: object;
+  typeorm: TypeOrmModuleOptions;
 
   @IsNotEmpty()
-  redis: object;
+  redis: RedisModuleOptions;
+
+  @IsNotEmpty()
+  integration: Integration;
 }

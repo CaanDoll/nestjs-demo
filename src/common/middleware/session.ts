@@ -17,7 +17,7 @@ class Session {
     if (!userStr) {
       throw new UnauthorizedException();
     }
-    redisServiceClient.expire(key, 2 * 60 * 60);
+    redisServiceClient.expire(key, 24 * 60 * 60);
     const { passport: { user } } = JSON.parse(userStr);
     request.user = user;
     return true;
