@@ -1,6 +1,6 @@
-import * as Enum from '@module/order/index.enum';
 import { BaseModel } from '@common/base/model';
 import { LocalDateTransformer } from '@common/util/typeorm-transformer';
+import * as Enum from '@module/order/index.enum';
 import { Column, Entity } from 'typeorm';
 
 @Entity()
@@ -30,7 +30,6 @@ export class Pay extends BaseModel {
     name: 'quotation_type',
   })
   quotationType?: Enum.OrderQuotationType;
-  isPostPaid: number;
 
   @Column({
     nullable: true,
