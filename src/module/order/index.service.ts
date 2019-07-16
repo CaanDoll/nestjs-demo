@@ -10,6 +10,30 @@ export class OrderService {
     private readonly integrationService: IntegrationService,
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
+  ) {
+  }
+
+  async create(body, user) {
+    const {
+      merchantBatchId,
+      paidRedirectUrl,
+      source,
+      isPostPay,
+      orders,
+    } = body;
+    const {
+      userId,
+      name,
+    } = user;
+  }
+}
+
+@Injectable()
+export class OrderOpService {
+  constructor(
+    private readonly integrationService: IntegrationService,
+    @InjectRepository(Order)
+    private readonly orderRepository: Repository<Order>,
   ) {}
 
   async opIndex(query) {
@@ -150,4 +174,28 @@ export class OrderService {
     });
   }
 
+}
+
+@Injectable()
+export class OrderUcService {
+  constructor(
+    private readonly integrationService: IntegrationService,
+    @InjectRepository(Order)
+    private readonly orderRepository: Repository<Order>,
+  ) {
+  }
+
+  async ucCreate(body, user) {
+    const {
+      merchantBatchId,
+      paidRedirectUrl,
+      source,
+      isPostPay,
+      orders,
+    } = body;
+    const {
+      userId,
+      name,
+    } = user;
+  }
 }
