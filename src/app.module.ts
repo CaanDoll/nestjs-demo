@@ -3,7 +3,7 @@ import { ConfigService } from '@common/config/index.service';
 import { OrderModule } from '@module/order/index.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { RedisModule } from 'nestjs-redis';
+import { RedisModule, RedisModuleOptions } from 'nestjs-redis';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { RedisModule } from 'nestjs-redis';
     RedisModule.forRootAsync({
       imports: [ ConfigModule ],
       inject: [ ConfigService ],
-      useFactory: (configService: ConfigService) => configService.get('redis'),
+      useFactory: (configService: ConfigService) => configService.get('redis') as RedisModuleOptions,
     }),
   ],
 })

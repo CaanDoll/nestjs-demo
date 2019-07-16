@@ -11,7 +11,6 @@ import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 // TODO log4js elk
-// TODO axios
 // TODO sentry
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
