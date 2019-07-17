@@ -1,75 +1,62 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# 订单系统
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+> 订单系统负责提供昆仑平台核心订单业务支撑。
 
-## Description
+核心框架技术储备：[Nest.js 入门文档](https://docs.nestjs.cn/6/firststeps)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## 目录结构
 
 ```bash
-$ npm install
+.
+├── README.md
+├── nest-cli.json # 脚手架配置
+├── package-lock.json
+├── package.json
+├── src
+│   ├── app.module.ts # 入口 module
+│   ├── common # 公用模块（submodule）
+│   │   ├── base # 基类
+│   │   │   ├── controller.ts # Controller 基类
+│   │   │   ├── dto.ts # DAO 基类
+│   │   │   └── model.ts # Model 基类
+│   │   ├── config # 配置 module
+│   │   ├── http # 请求 module（对外发送请求）
+│   │   ├── logger # 日志 module
+│   │   ├── middleware # 中间件
+│   │   └── util # 公用方法
+│   │       ├── gen-biz-id.ts # 生成 Gid
+│   │       ├── json2excel.ts # json 转 excel
+│   │       ├── typeorm-transformer.ts # typeorm 转换方法
+│   │       └── validation-pipe.ts # 验证管道
+│   ├── config # 配置 module 读取的文件
+│   │   ├── develop.ts
+│   │   ├── index.interface.ts
+│   │   ├── local.ts
+│   │   ├── production.ts
+│   │   └── test.ts
+│   ├── error # 错误枚举
+│   │   └── index.ts
+│   ├── integration # 向外发送请求的方法
+│   │   ├── index.module.ts
+│   │   └── index.service.ts
+│   ├── main.ts # 入口文件
+│   └── module # 业务 module
+│       ├── officer # 工单 model
+│       │   └── index.model.ts
+│       ├── order # 订单业务
+│       │   ├── index.controller.ts
+│       │   ├── index.dto.ts # 校验转换入参
+│       │   ├── index.enum.ts
+│       │   ├── index.model.ts
+│       │   ├── index.module.ts
+│       │   └── index.service.ts
+│       ├── pay # 支付 model
+│       │   └── index.model.ts
+│       ├── product # 产品 model
+│       │   └── index.model.ts
+│       └── refund # 退款 model
+│           └── index.model.ts
+├── tsconfig.json
+├── tslint.json
+└── yarn.lock
 ```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
