@@ -40,6 +40,6 @@ async function bootstrap() {
 
   const port = configService.get('port');
   await app.listen(port);
-  Logger.log(`app listening on ${port}, env: ${configService.get('env')}`, 'NestApplication');
+  Logger.log(`App listening on ${port}, env: ${configService.get('env')}`, 'NestApplication');
 }
 bootstrap();
