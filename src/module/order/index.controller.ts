@@ -164,9 +164,9 @@ export class OrderUcController extends BaseController {
   @Get('/uc/orders')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '查询订单' })
-  async ucIndex(@Query() query: UcIndexDto, @SessionUser() user: object): Promise<IResponse> {
-    await this.orderUcService.ucIndex(query, user);
-    return this.success();
+  async ucIndex(@Query() query: UcIndexDto, @SessionUser() user: object): Promise<IPageResponse> {
+    const res = await this.orderUcService.ucIndex(query, user);
+    return this.successPageData(res);
   }
 
   @Get('/uc/export-orders/download')

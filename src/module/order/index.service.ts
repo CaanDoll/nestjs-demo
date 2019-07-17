@@ -1,7 +1,7 @@
 import { IntegrationService } from '@integration/index.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, In, Repository } from 'typeorm';
+import { Between, In, Like, Repository } from 'typeorm';
 import { Order } from './index.model';
 
 @Injectable()
@@ -204,7 +204,46 @@ export class OrderUcService {
   }
 
   async ucIndex(query, user) {
-
+    const {
+      fuzzy,
+      orderType,
+      rowAddTimeStart,
+      rowAddTimeEnd,
+    } = query;
+    const {
+      id,
+    } = user;
+    interface IFilter {
+      orderId?: any;
+      orderType?: any;
+      rowAddTime?: any;
+      userId: string;
+    }
+    const filterParams: IFilter = {
+      userId: id,
+    };
+    if (fuzzy) {
+      filterParams.orderId = Like(`%${fuzzy}%`);
+    }
+    if (orderType) {
+      filterParams.orderType = orderType;
+    }
+    if (rowAddTimeStart && rowAddTimeEnd) {
+      filterParams.rowAddTime = Between(query.getRowAddTimeStart(), query.getRowAddTimeEnd());
+    }
+    return this.orderRepository.findAndCount({
+      where: filterParams,
+      skip: (query.getCurrent() - 1) * query.getPageSize(),
+      take: query.getPageSize(),
+      select: [
+        'orderId',
+        'orderType',
+        'orderState',
+        'rowAddTime',
+        'adjustPrice',
+      ],
+      relations: [ 'product', 'pay.actualAmount' ],
+    });
   }
 
   async ucShow(orderId: string, user) {

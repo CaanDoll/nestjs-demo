@@ -32,7 +32,10 @@
     "rimraf": "^2.6.2",
     "rxjs": "^6.3.3",
     "swagger-ui-express": "^4.0.7",
-    "typeorm": "^0.2.18"
+    "typeorm": "^0.2.18",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^3.10.0",
+    "winston-elasticsearch": "^0.7.12"
   },
   "devDependencies": {
     "@types/connect-redis": "0.0.10",

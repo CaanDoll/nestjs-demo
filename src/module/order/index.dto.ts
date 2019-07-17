@@ -408,8 +408,34 @@ export class UcPayDto {
   payType: string;
 }
 
-export class UcIndexDto {
+export class UcIndexDto extends BasePageDto {
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  @IsString()
+  fuzzy?: string;
 
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  @IsString()
+  orderType?: string;
+
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  @IsString()
+  rowAddTimeStart?: string;
+
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  @IsString()
+  rowAddTimeEnd?: string;
+
+  getRowAddTimeStart() {
+    return this.rowAddTimeStart ? new Date(this.rowAddTimeStart) : undefined;
+  }
+
+  getRowAddTimeEnd() {
+    return this.rowAddTimeEnd ? new Date(this.rowAddTimeEnd) : undefined;
+  }
 }
 
 export class UcShowDto {

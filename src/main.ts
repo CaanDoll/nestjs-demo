@@ -1,7 +1,7 @@
 import { BizFailedExceptionFilter } from '@common/http/biz-failed';
+import { Logger } from '@common/logger/index.service';
 import { startLoggerMiddleware } from '@common/middleware/logger';
 import { ValidationPipe } from '@common/util/validation-pipe';
-import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   ExpressAdapter,
@@ -17,12 +17,17 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
     AppModule,
     new ExpressAdapter(),
+    {
+      logger: new Logger(),
+    },
   );
 
   const configService = app
     .get('ConfigService');
+  const SWAGGER_PATH = 'swagger';
+  const IS_PRODUCTION = configService.get('env') === 'production';
 
-  if (configService.get('env') !== 'production') {
+  if (!IS_PRODUCTION) {
     const options = new DocumentBuilder()
       .setTitle(configService.get('npm_package_name'))
       .setDescription(configService.get('npm_package_description'))
@@ -30,7 +35,7 @@ async function bootstrap() {
       .addBearerAuth('token', 'header')
       .build();
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup('swagger', app, document);
+    SwaggerModule.setup(SWAGGER_PATH, app, document);
   }
 
   app.use(startLoggerMiddleware);
@@ -41,5 +46,6 @@ async function bootstrap() {
   const port = configService.get('port');
   await app.listen(port);
   Logger.log(`App listening on ${port}, env: ${configService.get('env')}`, 'NestApplication');
+  if (!IS_PRODUCTION)Logger.log(`Swagger doc setup http://127.0.0.1:${port}/${SWAGGER_PATH}`, 'NestApplication');
 }
 bootstrap();
