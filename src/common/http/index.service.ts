@@ -1,9 +1,9 @@
-import { ConfigService } from '@common/config/index.service';
-import { BizFailedException } from '@common/http/biz-failed';
-import { Logger } from '@common/logger/index.service';
 import { Integration } from '@config/index.interface';
 import { Injectable } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
+import { ConfigService } from '../config/index.service';
+import { BizFailedException } from '../http/biz-failed';
+import { Logger } from '../logger/index.service';
 
 interface IAxiosInstances {
   [propsName: string]: AxiosInstance;

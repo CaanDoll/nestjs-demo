@@ -1,7 +1,7 @@
-import { Logger } from '@common/logger/index.service';
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Logger } from '../logger/index.service';
 
 export const startLoggerMiddleware = async (req, res, next) => {
   Logger.log(`${req.method} ${req.url}`, 'StartLoggerMiddleware');

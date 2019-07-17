@@ -1,5 +1,5 @@
-import { ConfigModule } from '@common/config/index.module';
-import { ConfigService } from '@common/config/index.service';
+import { ConfigModule } from '../config/index.module';
+import { ConfigService } from '../config/index.service';
 import { Module } from '@nestjs/common';
 import { HttpService } from './index.service';
 
