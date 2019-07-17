@@ -12,7 +12,7 @@ import { RedisModule, RedisModuleOptions } from 'nestjs-redis';
     TypeOrmModule.forRootAsync({
       imports: [ ConfigModule ],
       inject: [ ConfigService ],
-      useFactory: (configService: ConfigService) => (configService.get('typeorm') as TypeOrmModuleOptions),
+      useFactory: (configService: ConfigService) => configService.get('typeorm') as TypeOrmModuleOptions,
     }),
     RedisModule.forRootAsync({
       imports: [ ConfigModule ],
