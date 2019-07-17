@@ -1,3 +1,4 @@
+import { BizFailedExceptionFilter } from '@common/http/biz-failed';
 import { startLoggerMiddleware } from '@common/middleware/logger';
 import { ValidationPipe } from '@common/util/validation-pipe';
 import { Logger } from '@nestjs/common';
@@ -35,8 +36,10 @@ async function bootstrap() {
   app.use(startLoggerMiddleware);
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalFilters(new BizFailedExceptionFilter());
 
-  await app.listen(configService.get('port'));
-  Logger.log(`app listening on ${configService.get('port')}, env: ${configService.get('env')}`);
+  const port = configService.get('port');
+  await app.listen(port);
+  Logger.log(`app listening on ${port}, env: ${configService.get('env')}`, 'NestApplication');
 }
 bootstrap();

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 export const startLoggerMiddleware = async (req, res, next) => {
-  Logger.log(`StartLogger ${req.method} ${req.url}`);
+  Logger.log(`${req.method} ${req.url}`, 'StartLoggerMiddleware');
   next();
 };
 
@@ -22,7 +22,7 @@ export class LoggingInterceptor implements NestInterceptor {
           } catch (e) {
             responseBodyStr = '';
           }
-          Logger.log(`LoggingInterceptor ${request.method} ${request.url} ${responseBodyStr} ${Date.now() - now}ms`);
+          Logger.log(`${request.method} ${request.url} ${responseBodyStr} ${Date.now() - now}ms`, 'LoggingInterceptor');
         }),
       );
   }

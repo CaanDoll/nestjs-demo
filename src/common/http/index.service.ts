@@ -1,4 +1,5 @@
 import { ConfigService } from '@common/config/index.service';
+import { BizFailedException } from '@common/http/biz-failed';
 import { Integration } from '@config/index.interface';
 import { Injectable, Logger } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
@@ -15,25 +16,26 @@ export class HttpService {
   ) {
     const integration: Integration = this.configService.get('integration');
     this.axiosInstances = {};
-    for (const key in integration) {
+    Object.keys(integration).forEach(key => {
       this.axiosInstances[key] = axios.create({
         baseURL: integration[key],
       });
       this.axiosInstances[key].interceptors.request.use(config => {
-        Logger.log(`HttpService ${key} request ${JSON.stringify(config)}`);
+        Logger.log(`${key} request ${JSON.stringify(config)}`, 'HttpService');
         return config;
       }, error => {
-        Logger.error(`HttpService ${key} request ${JSON.stringify(error)}`);
+        Logger.error(`${key} request ${JSON.stringify(error)}`, 'HttpService');
         return Promise.reject(error);
       });
       this.axiosInstances[key].interceptors.response.use(({ data }) => {
-        Logger.log(`HttpService ${key} response ${JSON.stringify(data)}`);
+        Logger.log(` ${key} response ${JSON.stringify(data)}`, 'HttpService');
+        if (data.code !== 200) throw new BizFailedException(data);
         return data;
       }, error => {
-        Logger.error(`HttpService ${key} response ${JSON.stringify(error)}`);
+        Logger.error(`${key} response ${JSON.stringify(error)}`, 'HttpService');
         return Promise.reject(error);
       });
-    }
+    });
   }
 
   prefix(key: keyof Integration) {
