@@ -198,4 +198,32 @@ export class OrderUcService {
       name,
     } = user;
   }
+
+  async ucPay(body, user) {
+
+  }
+
+  async ucIndex(query, user) {
+
+  }
+
+  async ucShow(orderId: string, user) {
+
+  }
+
+  async ucCountByOrderState(query, user) {
+
+  }
+
+  async ucInvoiceTotalAmount(query, user) {
+
+  }
+
+  async ucPaidProductCounts(query, user) {
+
+  }
+
+  async ucUpdateState(body, user) {
+
+  }
 }

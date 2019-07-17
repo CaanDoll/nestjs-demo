@@ -1,9 +1,16 @@
 import { BaseController, IPageResponse, IResponse } from '@common/base/controller';
 import { LoggingInterceptor } from '@common/middleware/logger';
-import { OpSessionGuard, SessionUser } from '@common/middleware/session';
+import { OpSessionGuard, SessionUser, UcSessionGuard } from '@common/middleware/session';
 import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiUseTags } from '@nestjs/swagger';
-import { OpCheckPreconditionDto, OpCreateDto, OpIndexByOrderIdsDto, OpIndexDto, OpShowDto } from './index.dto';
+import {
+  OpCheckPreconditionDto,
+  OpCreateDto,
+  OpIndexByOrderIdsDto,
+  OpIndexDto,
+  OpShowDto, UcCountByOrderStateDto, UcIndexDto, UcInvoiceTotalAmountDto, UcPaidProductCountsDto,
+  UcPayDto, UcShowDto, UcUpdateStateDto,
+} from './index.dto';
 import { OrderOpService, OrderService, OrderUcService } from './index.service';
 
 @Controller('/api/v1')
@@ -139,10 +146,90 @@ export class OrderUcController extends BaseController {
   }
 
   @Post('/uc/orders')
-  @UseGuards(OpSessionGuard)
+  @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '创建订单' })
   async ucCreate(@Body() body: OpCreateDto, @SessionUser() user: object): Promise<IResponse> {
     await this.orderUcService.ucCreate(body, user);
+    return this.success();
+  }
+
+  @Post('/uc/orders/pay')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '支付订单' })
+  async ucPay(@Body() body: UcPayDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucPay(body, user);
+    return this.success();
+  }
+
+  @Get('/uc/orders')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '查询订单' })
+  async ucIndex(@Query() query: UcIndexDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucIndex(query, user);
+    return this.success();
+  }
+
+  @Get('/uc/export-orders/download')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '查询订单' })
+  async ucDownload(@Query() query: UcIndexDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucIndex(query, user);
+    return this.success();
+  }
+
+  @Get('/uc/orders/:orderId')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '查询单笔订单详情' })
+  async ucShow(@Param() param: UcShowDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucShow(param.orderId, user);
+    return this.success();
+  }
+
+  @Get('/uc/invoice-orders')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '查询可开票订单' })
+  async ucInvoiceOrders(@Param() param: UcShowDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucShow(param.orderId, user);
+    return this.success();
+  }
+
+  @Get('/uc/orders-by-ids')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '通过多笔订单流水查询订单' })
+  async ucOrdersByIds(@Param() param: UcShowDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucShow(param.orderId, user);
+    return this.success();
+  }
+
+  @Get('/uc/count-by-order-state')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '通过订单状态获取订单数量' })
+  async ucCountByOrderState(@Query() query: UcCountByOrderStateDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucCountByOrderState(query, user);
+    return this.success();
+  }
+
+  @Get('/uc/invoice-total-amount')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '获取可开票总金额' })
+  async ucInvoiceTotalAmount(@Query() query: UcInvoiceTotalAmountDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucInvoiceTotalAmount(query, user);
+    return this.success();
+  }
+
+  @Get('/uc/paid-product-counts')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '获取已有订单产品数量' })
+  async ucPaidProductCounts(@Query() query: UcPaidProductCountsDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucPaidProductCounts(query, user);
+    return this.success();
+  }
+
+  @Patch('/uc/orders/:orderId/state')
+  @UseGuards(UcSessionGuard)
+  @ApiOperation({ title: '更新订单状态' })
+  async ucUpdateState(@Body() body: UcUpdateStateDto, @SessionUser() user: object): Promise<IResponse> {
+    await this.orderUcService.ucUpdateState(body, user);
     return this.success();
   }
 }

@@ -2,7 +2,7 @@ import { BasePageDto } from '@common/base/dto';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import {
   ArrayContains,
-  ArrayMaxSize,
+  ArrayMaxSize, ArrayMinSize,
   IsArray,
   IsBoolean,
   IsEnum, IsInt,
@@ -364,4 +364,73 @@ export class OpCheckPreconditionDto {
   @ApiModelProperty()
   @IsString()
   content: string;
+}
+
+export class UcAddOrdersPayItemDto {
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  @Length(1, 40)
+  @IsString()
+  orderId: string;
+
+  @IsArray()
+  @ApiModelProperty()
+  couponIds: string[];
+
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  @Length(1, 40)
+  @IsString()
+  couponCode?: string;
+}
+
+export class UcPayDto {
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  @IsString()
+  returnUrl?: string;
+
+  @IsOptional()
+  @ApiModelPropertyOptional()
+  @Length(1, 40)
+  @IsString()
+  batchId?: string;
+
+  @IsNotEmpty()
+  @ApiModelProperty({ type: [ UcAddOrdersPayItemDto ] })
+  @ArrayMinSize(1)
+  @IsArray()
+  orders: UcAddOrdersPayItemDto[];
+
+  @IsNotEmpty()
+  @ApiModelProperty()
+  @IsString()
+  payType: string;
+}
+
+export class UcIndexDto {
+
+}
+
+export class UcShowDto {
+  @IsNotEmpty()
+  @ApiModelProperty()
+  @IsString()
+  orderId: string;
+}
+
+export class UcCountByOrderStateDto {
+
+}
+
+export class UcInvoiceTotalAmountDto {
+
+}
+
+export class UcPaidProductCountsDto {
+
+}
+
+export class UcUpdateStateDto {
+
 }
