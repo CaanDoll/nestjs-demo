@@ -111,6 +111,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/elasticsearch@^5.0.34":
+  version "5.0.34"
+  resolved "https://registry.npm.taobao.org/@types/elasticsearch/download/@types/elasticsearch-5.0.34.tgz#e2983eaa71243ed10d74253178e4cf24413e1d01"
+  integrity sha1-4pg+qnEkPtENdCUxeOTPJEE+HQE=
+
 "@types/express-serve-static-core@*":
   version "4.16.7"
   resolved "https://registry.npm.taobao.org/@types/express-serve-static-core/download/@types/express-serve-static-core-4.16.7.tgz#50ba6f8a691c08a3dd9fa7fba25ef3133d298049"

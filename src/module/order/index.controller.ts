@@ -4,27 +4,34 @@ import { OpSessionGuard, SessionUser, UcSessionGuard } from '@common/middleware/
 import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 import {
+  MsCreateDto,
   OpCheckPreconditionDto,
   OpCreateDto,
   OpIndexByOrderIdsDto,
   OpIndexDto,
-  OpShowDto, UcCountByOrderStateDto, UcIndexDto, UcInvoiceTotalAmountDto, UcPaidProductCountsDto,
-  UcPayDto, UcShowDto, UcUpdateStateDto,
+  OpShowDto,
+  UcCountByOrderStateDto,
+  UcIndexDto,
+  UcInvoiceTotalAmountDto,
+  UcPaidProductCountsDto,
+  UcPayDto,
+  UcShowDto,
+  UcUpdateStateDto,
 } from './index.dto';
-import { OrderOpService, OrderService, OrderUcService } from './index.service';
+import { OrderMsService, OrderOpService, OrderUcService } from './index.service';
 
 @Controller('/api/v1')
-@ApiUseTags('order')
+@ApiUseTags('order-ms')
 @ApiBearerAuth()
-export class OrderController extends BaseController {
-  constructor(private readonly orderService: OrderService) {
+export class OrderMsController extends BaseController {
+  constructor(private readonly orderService: OrderMsService) {
     super();
   }
 
   @Post('/ms/orders')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '创建订单' })
-  async ucCreate(@Body() body: OpCreateDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucCreate(@Body() body: MsCreateDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderService.create(body, user);
     return this.success();
   }
@@ -58,7 +65,7 @@ export class OrderOpController extends BaseController {
   @Get('/op/orders-by-order-ids')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '按订单号批量查询' })
-  async opIndexByOrderIds(@Query() query: OpIndexByOrderIdsDto): Promise<IResponse> {
+  async opIndexByOrderIds(@Query() query: OpIndexByOrderIdsDto): Promise<IResponse<any>> {
     const res = await this.orderOpService.opIndexByOrderIds(OpIndexByOrderIdsDto);
     return this.success(res);
   }
@@ -66,7 +73,7 @@ export class OrderOpController extends BaseController {
   @Get('/op/orders/:orderId')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '订单详情' })
-  async opShow(@Param() param: OpShowDto): Promise<IResponse> {
+  async opShow(@Param() param: OpShowDto): Promise<IResponse<any>> {
     const res = await this.orderOpService.opShow(param);
     return this.success(res);
   }
@@ -74,7 +81,7 @@ export class OrderOpController extends BaseController {
   @Post('/op/orders')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '创建订单' })
-  async opCreate(@Body() body: OpCreateDto, @SessionUser() user: object): Promise<IResponse> {
+  async opCreate(@Body() body: OpCreateDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderOpService.opCreate(body, user);
     return this.success();
   }
@@ -82,7 +89,7 @@ export class OrderOpController extends BaseController {
   @Post('/op/check-precondition')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '校验前置条件' })
-  async opCheckPrecondition(@Body() body: OpCheckPreconditionDto, @SessionUser() user: object): Promise<IResponse> {
+  async opCheckPrecondition(@Body() body: OpCheckPreconditionDto, @SessionUser() user: object): Promise<IResponse<any>> {
     const res = await this.orderOpService.opCheckPrecondition(body);
     return this.success(res);
   }
@@ -90,7 +97,7 @@ export class OrderOpController extends BaseController {
   @Post('op/orders/:orderId/refunds')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '创建订单退款' })
-  async opRefunds(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse> {
+  async opRefunds(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse<any>> {
     const res = await this.orderOpService.opIndex(body);
     return this.successPageData(res);
   }
@@ -98,7 +105,7 @@ export class OrderOpController extends BaseController {
   @Patch('op/orders/:orderId/adjust-price')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '修改价格' })
-  async opAdjustPrice(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse> {
+  async opAdjustPrice(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse<any>> {
     const res = await this.orderOpService.opIndex(body);
     return this.successPageData(res);
   }
@@ -106,7 +113,7 @@ export class OrderOpController extends BaseController {
   @Patch('op/orders/:orderId/manager')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '更新客户经理' })
-  async opManager(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse> {
+  async opManager(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse<any>> {
     const res = await this.orderOpService.opIndex(body);
     return this.successPageData(res);
   }
@@ -114,7 +121,7 @@ export class OrderOpController extends BaseController {
   @Patch('op/orders/:orderId/pay')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '支付' })
-  async opPay(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse> {
+  async opPay(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse<any>> {
     const res = await this.orderOpService.opIndex(body);
     return this.successPageData(res);
   }
@@ -122,7 +129,7 @@ export class OrderOpController extends BaseController {
   @Patch('op/orders/:orderId/refunds')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '退款审核' })
-  async opRefundsAudit(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse> {
+  async opRefundsAudit(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse<any>> {
     const res = await this.orderOpService.opIndex(body);
     return this.successPageData(res);
   }
@@ -130,7 +137,7 @@ export class OrderOpController extends BaseController {
   @Patch('op/orders/:orderId/expired-reason')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '过期理由' })
-  async opExpiredReason(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse> {
+  async opExpiredReason(@Body() body: OpIndexDto, @SessionUser() user: object): Promise<IResponse<any>> {
     const res = await this.orderOpService.opIndex(body);
     return this.successPageData(res);
   }
@@ -148,7 +155,7 @@ export class OrderUcController extends BaseController {
   @Post('/uc/orders')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '创建订单' })
-  async ucCreate(@Body() body: OpCreateDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucCreate(@Body() body: OpCreateDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucCreate(body, user);
     return this.success();
   }
@@ -156,7 +163,7 @@ export class OrderUcController extends BaseController {
   @Post('/uc/orders/pay')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '支付订单' })
-  async ucPay(@Body() body: UcPayDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucPay(@Body() body: UcPayDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucPay(body, user);
     return this.success();
   }
@@ -172,7 +179,7 @@ export class OrderUcController extends BaseController {
   @Get('/uc/export-orders/download')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '查询订单' })
-  async ucDownload(@Query() query: UcIndexDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucDownload(@Query() query: UcIndexDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucIndex(query, user);
     return this.success();
   }
@@ -180,7 +187,7 @@ export class OrderUcController extends BaseController {
   @Get('/uc/orders/:orderId')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '查询单笔订单详情' })
-  async ucShow(@Param() param: UcShowDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucShow(@Param() param: UcShowDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucShow(param.orderId, user);
     return this.success();
   }
@@ -188,7 +195,7 @@ export class OrderUcController extends BaseController {
   @Get('/uc/invoice-orders')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '查询可开票订单' })
-  async ucInvoiceOrders(@Param() param: UcShowDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucInvoiceOrders(@Param() param: UcShowDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucShow(param.orderId, user);
     return this.success();
   }
@@ -196,7 +203,7 @@ export class OrderUcController extends BaseController {
   @Get('/uc/orders-by-ids')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '通过多笔订单流水查询订单' })
-  async ucOrdersByIds(@Param() param: UcShowDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucOrdersByIds(@Param() param: UcShowDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucShow(param.orderId, user);
     return this.success();
   }
@@ -204,7 +211,7 @@ export class OrderUcController extends BaseController {
   @Get('/uc/count-by-order-state')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '通过订单状态获取订单数量' })
-  async ucCountByOrderState(@Query() query: UcCountByOrderStateDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucCountByOrderState(@Query() query: UcCountByOrderStateDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucCountByOrderState(query, user);
     return this.success();
   }
@@ -212,7 +219,7 @@ export class OrderUcController extends BaseController {
   @Get('/uc/invoice-total-amount')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '获取可开票总金额' })
-  async ucInvoiceTotalAmount(@Query() query: UcInvoiceTotalAmountDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucInvoiceTotalAmount(@Query() query: UcInvoiceTotalAmountDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucInvoiceTotalAmount(query, user);
     return this.success();
   }
@@ -220,7 +227,7 @@ export class OrderUcController extends BaseController {
   @Get('/uc/paid-product-counts')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '获取已有订单产品数量' })
-  async ucPaidProductCounts(@Query() query: UcPaidProductCountsDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucPaidProductCounts(@Query() query: UcPaidProductCountsDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucPaidProductCounts(query, user);
     return this.success();
   }
@@ -228,7 +235,7 @@ export class OrderUcController extends BaseController {
   @Patch('/uc/orders/:orderId/state')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '更新订单状态' })
-  async ucUpdateState(@Body() body: UcUpdateStateDto, @SessionUser() user: object): Promise<IResponse> {
+  async ucUpdateState(@Body() body: UcUpdateStateDto, @SessionUser() user: object): Promise<IResponse<any>> {
     await this.orderUcService.ucUpdateState(body, user);
     return this.success();
   }
