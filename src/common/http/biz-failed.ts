@@ -2,14 +2,14 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from
 import { IResponse } from '../base/controller';
 
 export class BizFailedException extends HttpException {
-  constructor(data: IResponse) {
+  constructor(data: IResponse<any>) {
     super(data, HttpStatus.OK);
   }
 }
 
 @Catch(BizFailedException)
 export class BizFailedExceptionFilter implements ExceptionFilter {
-  catch(data: IResponse, host: ArgumentsHost) {
+  catch(data: IResponse<any>, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     response
