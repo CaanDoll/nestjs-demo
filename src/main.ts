@@ -38,10 +38,10 @@ async function bootstrap() {
     SwaggerModule.setup(SWAGGER_PATH, app, document);
   }
 
-  app.use(startLoggerMiddleware);
-  app.use(cookieParser());
-  app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new BizFailedExceptionFilter());
+  app.use(startLoggerMiddleware); // 全局http访问初始日志
+  app.use(cookieParser()); // 全局cookie解析
+  app.useGlobalPipes(new ValidationPipe()); // 全局接口参数验证+参数转换
+  app.useGlobalFilters(new BizFailedExceptionFilter()); // 全局捕获请求其他服务接口时code不为200的业务失败情况
 
   const port = configService.get('port');
   await app.listen(port);
