@@ -1,3 +1,4 @@
+import { ConfigService } from '@common/config/index.service';
 import { BizFailedExceptionFilter } from '@common/http/biz-failed';
 import { Logger } from '@common/logger/index.service';
 import { startLoggerMiddleware } from '@common/middleware/logger';
@@ -22,10 +23,11 @@ async function bootstrap() {
     },
   );
 
-  const configService = app
+  const configService: ConfigService = app
     .get('ConfigService');
   const SWAGGER_PATH = 'swagger';
-  const IS_PRODUCTION = configService.get('env') === 'production';
+  const NODE_ENV = configService.get('NODE_ENV');
+  const IS_PRODUCTION = NODE_ENV === 'production';
 
   if (!IS_PRODUCTION) {
     const options = new DocumentBuilder()
@@ -45,7 +47,7 @@ async function bootstrap() {
 
   const port = configService.get('port');
   await app.listen(port);
-  Logger.log(`App listening on ${port}, env: ${configService.get('env')}`, 'NestApplication');
+  Logger.log(`App listening on ${port}, env: ${NODE_ENV}`, 'NestApplication');
   if (!IS_PRODUCTION)Logger.log(`Swagger doc setup http://127.0.0.1:${port}/${SWAGGER_PATH}`, 'NestApplication');
 }
 bootstrap();

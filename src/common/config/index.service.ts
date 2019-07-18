@@ -31,6 +31,7 @@ class EnvVar {
   npm_package_description: string;
 }
 
+// 校验环境变量
 async function validateEnvVar() {
   const errors = await validate(Object.assign(new EnvVar(), process.env));
   if (errors.length) {
@@ -43,28 +44,31 @@ async function validateEnvVar() {
 
 validateEnvVar();
 
+interface IAllConfig extends EnvVar, Config {}
+
 export class ConfigService {
-  private readonly config: Config;
+  private readonly config: IAllConfig;
 
   constructor() {
-    const env = process.env.NODE_ENV as ENV || ENV.local;
+    const { npm_package_name, npm_package_version, npm_package_description, NODE_ENV } = process.env;
+    const env = NODE_ENV as ENV || ENV.local;
     const config = require(path.join(process.cwd(), 'src/config', env)).default;
-    this.validateEnvConfig(config);
-    const { npm_package_name, npm_package_version, npm_package_description } = process.env;
+    this.validateConfig(config);
     this.config = {
       ...config,
-      env,
+      NODE_ENV: env,
       npm_package_name,
       npm_package_version,
       npm_package_description,
     };
   }
 
-  get(key: keyof Config): any {
+  get(key: keyof IAllConfig): any {
     return this.config[key];
   }
 
-  private async validateEnvConfig(config): Promise<void> {
+  // 校验config
+  private async validateConfig(config): Promise<void> {
     const errors = await validate(Object.assign(new Config(), config), {
       whitelist: true,
       forbidNonWhitelisted: true,

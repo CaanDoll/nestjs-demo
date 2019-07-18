@@ -1,7 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 import { RedisModuleOptions } from 'nestjs-redis';
-import { ElasticsearchTransportOptions } from 'winston-elasticsearch';
 
 export class Integration {
   product: string;
@@ -31,5 +30,5 @@ export class Config {
   integration: Integration;
 
   @IsOptional()
-  elk?: ElasticsearchTransportOptions;
+  elk?: string;
 }

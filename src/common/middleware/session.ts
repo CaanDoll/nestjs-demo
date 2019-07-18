@@ -8,11 +8,13 @@ enum CookieKey {
 
 @Injectable()
 class Session {
-  constructor(private readonly redisService: RedisService) {}
+  constructor(
+    private readonly redisService: RedisService,
+  ) {}
   protected async guard(context: ExecutionContext, cookieKey: CookieKey) {
     const request = context.switchToHttp().getRequest();
     const redisServiceClient = this.redisService.getClient();
-    const key = request.cookies[cookieKey] || request.headers.token; // sessionId 可以从cookie上某个值拿，也可以从header上token拿，兼容未来
+    const key = request.cookies[cookieKey] || request.headers.token; // sessionId 可以从cookie上某个值拿，也可以从header上token拿，兼容未来移动端与swagger
     const userStr = await redisServiceClient.get(key);
     if (!userStr) {
       throw new UnauthorizedException();
