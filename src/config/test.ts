@@ -34,6 +34,11 @@ const config: Config = {
     openapi: 'http://10.10.4.101:31182',
     uploadUrl: 'http://10.10.4.101:32720',
   },
+  elk: {
+    client: {
+      host: 'http://10.8.250.34:9200/_bulk',
+    },
+  },
 };
 
 export default config;

@@ -3,9 +3,9 @@ import * as moment from 'moment';
 import * as path from 'path';
 import { createLogger, format, transports } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
-/* import { ConfigService } from '../config/index.service';
+import { ConfigService } from '../config/index.service';
 const configService = new ConfigService();
-console.log(configService.get('elk')); // 接elk*/
+console.log(configService.get('elk')); // 接elk
 
 const { combine, timestamp, printf } = format;
 

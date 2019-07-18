@@ -34,6 +34,11 @@ const config: Config = {
     openapi: 'http://openapi-master:4000',
     uploadUrl: 'http://oss-master:4000',
   },
+  elk: {
+    client: {
+      host: 'http://es-single:9200/_bulk',
+    },
+  },
 };
 
 export default config;
