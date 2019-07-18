@@ -5,7 +5,9 @@ import { createLogger, format, transports } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
 import { ConfigService } from '../config/index.service';
 const configService = new ConfigService();
-console.log(configService.get('elk')); // 接elk
+const elkHost = configService.get('elk');
+// tslint:disable-next-line:no-var-requires
+const WinstonElasticsearch = require('winston-elasticsearch');
 
 const { combine, timestamp, printf } = format;
 
@@ -32,6 +34,14 @@ const logger = createLogger({
   ],
 });
 
+if (elkHost) {
+  logger.add(new WinstonElasticsearch({
+    client: {
+      host: elkHost,
+    },
+  }));
+}
+
 if (isProduction) {
   logger.add(new DailyRotateFile({
     level: 'info',
@@ -52,6 +62,10 @@ export class Logger implements LoggerService {
     logger.info(message, context);
   }
 
+  info(message: any, context: string) {
+    logger.info(message, context);
+  }
+
   warn(message: any, context: string) {
     logger.warn(message, context);
   }
@@ -65,6 +79,10 @@ export class Logger implements LoggerService {
   }
 
   static log(message: any, context: string) {
+    logger.info(message, context);
+  }
+
+  static info(message: any, context: string) {
     logger.info(message, context);
   }
 
