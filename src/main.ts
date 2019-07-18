@@ -1,4 +1,4 @@
-import { ConfigService } from '@common/config/index.service';
+import { ConfigService, ENODE_ENV } from '@common/config/index.service';
 import { BizFailedExceptionFilter } from '@common/http/biz-failed';
 import { Logger } from '@common/logger/index.service';
 import { startLoggerMiddleware } from '@common/middleware/logger';
@@ -27,7 +27,7 @@ async function bootstrap() {
     .get('ConfigService');
   const SWAGGER_PATH = 'swagger';
   const NODE_ENV = configService.get('NODE_ENV');
-  const IS_PRODUCTION = NODE_ENV === 'production';
+  const IS_PRODUCTION = NODE_ENV === ENODE_ENV.production;
 
   if (!IS_PRODUCTION) {
     const options = new DocumentBuilder()

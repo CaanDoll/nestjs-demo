@@ -2,7 +2,7 @@ import { Config } from '@config/index.interface';
 import { IsEnum, IsNotEmpty, IsOptional, IsString, validate } from 'class-validator';
 import * as path from 'path';
 
-enum ENV {
+export enum ENODE_ENV {
   local= 'local',
   develop= 'develop',
   test= 'test',
@@ -11,8 +11,8 @@ enum ENV {
 
 class EnvVar {
   @IsOptional()
-  @IsEnum(ENV)
-  NODE_ENV: ENV;
+  @IsEnum(ENODE_ENV)
+  NODE_ENV: ENODE_ENV;
 
   @IsNotEmpty()
   @IsString()
@@ -51,7 +51,7 @@ export class ConfigService {
 
   constructor() {
     const { npm_package_name, npm_package_version, npm_package_description, NODE_ENV } = process.env;
-    const env = NODE_ENV as ENV || ENV.local;
+    const env = NODE_ENV as ENODE_ENV || ENODE_ENV.local;
     const config = require(path.join(process.cwd(), 'src/config', env)).default;
     this.validateConfig(config);
     this.config = {
