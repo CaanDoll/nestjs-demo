@@ -5,7 +5,7 @@ import { Between, In, Like, Repository } from 'typeorm';
 import { Order } from './index.model';
 
 @Injectable()
-export class OrderService {
+export class OrderMsService {
   constructor(
     private readonly integrationService: IntegrationService,
     @InjectRepository(Order)

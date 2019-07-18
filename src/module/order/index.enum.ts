@@ -140,89 +140,6 @@ export enum OrderSource {
 }
 
 /**
- * 预付费或者后付费
- */
-export enum PayPreOrPost {
-  PRE = 0,
-  POST = 1,
-}
-
-/**
- * 系统环境
- * @enum DEV DEV development 开发环境
- * @enum PROD PROD production 生产环境
- * @enum TEST TEST test 测试环境
- * @enum PRE_PUBLISH PRE_PUBLISH prepublish 预发布环境
- * @enum LOCAL LOCAL local 本地环境
- */
-export enum Environment {
-  DEV = 'development',
-  PROD = 'production',
-  TEST = 'test',
-  PRE_PUBLISH = 'prepublish',
-  LOCAL = 'local',
-}
-
-export enum ErrorCode {
-  PREPAY_PAID_ORDER = 10030001,
-  FAIL_LOCK_INVENTORY,
-  FAIL_CONFIRM_LOCK_INVENTORY,
-  FAIL_GET_PRODUCT_INFO,
-  FAIL_VALIDATE_REQUEST_PARAMS,
-
-  FAIL_GET_MANAGER_INFO,
-  FAIL_UPDATE_PAID_ORDER,
-  INVALID_ORDER_NUMBER,
-  FAIL_ADD_WORK_OFFICE,
-  FAIL_GET_USER_MANAGER_INFO,
-
-  FAIL_UPDATE_ORDER_STATE,
-  SYSTEM_ERROR,
-  FAIL_ADD_ORDER,
-  FAIL_ADD_REFUND,
-  UN_AUTHENTICATED,
-
-  INVALID_ORDER_ADJUST_PRICE,
-  INVALID_PRODUCT,
-  INVALID_ACTION,
-}
-
-export enum ErrorCode2 {
-  PREPAY_PAID_ORDER = 401,
-  FAIL_LOCK_INVENTORY,
-  FAIL_CONFIRM_LOCK_INVENTORY,
-  FAIL_GET_PRODUCT_INFO,
-  FAIL_VALIDATE_REQUEST_PARAMS,
-
-  FAIL_GET_MANAGER_INFO,
-  FAIL_UPDATE_PAID_ORDER,
-  INVALID_ORDER_NUMBER,
-  FAIL_ADD_WORK_OFFICE,
-  FAIL_GET_USER_MANAGER_INFO,
-
-  FAIL_UPDATE_ORDER_STATE,
-  SYSTEM_ERROR,
-  FAIL_ADD_ORDER,
-  FAIL_ADD_REFUND,
-  UN_AUTHENTICATED,
-
-  INVALID_ORDER_ADJUST_PRICE,
-  INVALID_PRODUCT,
-  INVALID_ACTION,
-  INVALID_BATCH_ORDER_DATA,
-  FAIL_UPLOAD_FILE,
-
-  SUB_SYSTEM_ERROR,
-  INVALID_REFUND_AMOUNT,
-  WITHOUT_USER_ID,
-  INVALID_TIME_STRING,
-  MISS_PRECONDITION,
-
-  FAIL_CHECK_PRECONDITION,
-  NO_REFUND_PRODUCT,
-}
-
-/**
  * @enum APPLIED APPLIED 已申请
  * @enum RESOLVED RESOLVED 已通过
  * @enum REJECTED REJECTED 已驳回
@@ -256,6 +173,11 @@ export enum ContractState {
 export enum IfInvoice {
   YES = 0,
   NO = 1,
+}
+
+export enum EnumIsForeign {
+  NO = 0,
+  YES = 1,
 }
 
 /**

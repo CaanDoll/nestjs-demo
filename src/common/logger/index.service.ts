@@ -21,7 +21,9 @@ const logger = createLogger({
       info => {
         const { timestamp, level, message, ...meta } = info;
         // @ts-ignore
-        const context = meta[Symbol.for('splat')][0];
+        const SPLAT = meta[Symbol.for('splat')];
+        // @ts-ignore
+        const context = SPLAT.length ? SPLAT[0] : 'Undefined';
         return `${ moment(timestamp).format('YYYY-MM-DD HH:mm:ss') } [${process.pid}] [${ level.toUpperCase() }] [${context}] ${message}`;
       },
     ),

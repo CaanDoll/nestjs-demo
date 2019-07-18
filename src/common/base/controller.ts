@@ -6,13 +6,15 @@ const { npm_package_code } = process.env;
 
 export type IPageData = [any[], number];
 
-export interface IResponse {
+export interface IResponse<T> {
   code: number | string;
   message: string;
-  data?: any;
+  data?: T;
 }
 
-export interface IPageResponse extends IResponse {
+export interface IPageResponse {
+  code: number | string;
+  message: string;
   data: {
     list: any[],
     total: number,
@@ -20,8 +22,8 @@ export interface IPageResponse extends IResponse {
 }
 
 export abstract class BaseController {
-  protected success(data?: object | object[] | null): IResponse {
-    const body: IResponse = {
+  protected success(data?: object | object[] | null): IResponse<any> {
+    const body: IResponse<any> = {
       code: 200,
       message: 'success',
     };
@@ -46,8 +48,8 @@ export abstract class BaseController {
     return json2excel(columns, list);
   }
 
-  protected failed(errorType: ErrorType, data?: object | object[]): IResponse {
-    const body: IResponse = {
+  protected failed(errorType: ErrorType, data?: object | object[]): IResponse<any> {
+    const body: IResponse<any> = {
       code: `${npm_package_code}${errorType}`,
       message: error[errorType],
     };
