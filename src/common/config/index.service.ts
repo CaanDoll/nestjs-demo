@@ -45,7 +45,7 @@ async function validateEnvVar() {
 validateEnvVar();
 
 interface IAllConfig extends EnvVar, Config {}
-
+let instance;
 export class ConfigService {
   private readonly config: IAllConfig;
 
@@ -61,6 +61,13 @@ export class ConfigService {
       npm_package_version,
       npm_package_description,
     };
+  }
+
+  static getInstance() {
+    if (!instance) {
+      instance = new ConfigService();
+    }
+    return instance;
   }
 
   get(key: keyof IAllConfig): any {

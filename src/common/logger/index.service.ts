@@ -4,7 +4,7 @@ import * as path from 'path';
 import { createLogger, format, transports } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
 import { ConfigService, ENODE_ENV } from '../config/index.service';
-const configService = new ConfigService();
+const configService = ConfigService.getInstance();
 const elkHost = configService.get('elk');
 // tslint:disable-next-line:no-var-requires
 const WinstonElasticsearch = require('winston-elasticsearch');

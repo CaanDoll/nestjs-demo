@@ -5,7 +5,7 @@ import { ConfigService } from './index.service';
   providers: [
     {
       provide: ConfigService,
-      useValue: new ConfigService(),
+      useValue: ConfigService.getInstance(),
     },
   ],
   exports: [ ConfigService ],

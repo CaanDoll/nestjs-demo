@@ -1,6 +1,6 @@
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '../config/index.module';
 import { ConfigService } from '../config/index.service';
-import { Module } from '@nestjs/common';
 import { HttpService } from './index.service';
 
 @Module({
@@ -10,7 +10,7 @@ import { HttpService } from './index.service';
   providers: [
     {
       provide: HttpService,
-      useValue: new HttpService(new ConfigService()),
+      useValue: new HttpService(ConfigService.getInstance()),
     },
   ],
   exports: [ HttpService ],
