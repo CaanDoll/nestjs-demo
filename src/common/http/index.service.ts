@@ -1,4 +1,4 @@
-import { Integration } from '@config/index.interface';
+import { Integration } from '../../micro-service-a/config/index.interface';
 import { Injectable } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import { ConfigService } from '../config/index.service';

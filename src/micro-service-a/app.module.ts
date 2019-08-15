@@ -1,6 +1,6 @@
 import { ConfigModule } from '@common/config/index.module';
 import { ConfigService } from '@common/config/index.service';
-import { OrderModule } from '@module/order/index.module';
+import { OrderModule } from './module/order/index.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { RedisModule, RedisModuleOptions } from 'nestjs-redis';

@@ -1,5 +1,5 @@
 import { HttpModule } from '@common/http/index.module';
-import { IntegrationService } from '@integration/index.service';
+import { IntegrationService } from './index.service';
 import { Module } from '@nestjs/common';
 
 @Module({

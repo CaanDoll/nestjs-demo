@@ -1,4 +1,4 @@
-import { IntegrationModule } from '@integration/index.module';
+import { IntegrationModule } from '../../integration/index.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderMsController, OrderOpController, OrderUcController } from './index.controller';

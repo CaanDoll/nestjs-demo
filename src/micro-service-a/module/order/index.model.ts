@@ -1,9 +1,9 @@
 import { BaseModel } from '@common/base/model';
 import { LocalDateTransformer } from '@common/util/typeorm-transformer';
-import { Officer } from '@module/officer/index.model';
-import { Pay } from '@module/pay/index.model';
-import { Product } from '@module/product/index.model';
-import { Refund } from '@module/refund/index.model';
+import { Officer } from '../officer/index.model';
+import { Pay } from '../pay/index.model';
+import { Product } from '../product/index.model';
+import { Refund } from '../refund/index.model';
 import {
   Column,
   Entity,

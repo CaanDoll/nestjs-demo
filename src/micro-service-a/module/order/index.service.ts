@@ -1,4 +1,4 @@
-import { IntegrationService } from '@integration/index.service';
+import { IntegrationService } from '../../integration/index.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Between, In, Like, Repository } from 'typeorm';

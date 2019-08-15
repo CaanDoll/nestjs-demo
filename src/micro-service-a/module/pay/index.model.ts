@@ -1,6 +1,6 @@
 import { BaseModel } from '@common/base/model';
 import { LocalDateTransformer } from '@common/util/typeorm-transformer';
-import * as Enum from '@module/order/index.enum';
+import * as Enum from '../order/index.enum';
 import { Column, Entity } from 'typeorm';
 
 @Entity()
