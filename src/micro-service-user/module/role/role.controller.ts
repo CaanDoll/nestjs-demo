@@ -2,13 +2,13 @@ import {
   BaseController,
   IPageResponse,
   IResponse,
-} from '@common/base/controller';
-import { LoggingInterceptor } from '@common/middleware/logger';
+} from '@common/base/base.controller';
+import { LoggingInterceptor } from '@common/middleware/logger/logger.interceptor';
 import {
   OpSessionGuard,
   SessionUser,
   UcSessionGuard,
-} from '@common/middleware/session';
+} from '@common/middleware/session/session-user.decorator';
 import {
   Body,
   Controller,
@@ -35,15 +35,15 @@ import {
   UcPayDto,
   UcShowDto,
   UcUpdateStateDto,
-} from './index.dto';
+} from './role.dto';
 import {
   OrderMsService,
   OrderOpService,
   OrderUcService,
-} from './index.service';
+} from './role.service';
 
 @Controller('/api/v1')
-@ApiUseTags('order-ms')
+@ApiUseTags('role-ms')
 @ApiBearerAuth()
 export class OrderMsController extends BaseController {
   constructor(private readonly orderService: OrderMsService) {
@@ -63,7 +63,7 @@ export class OrderMsController extends BaseController {
 }
 
 @Controller('/api/v1')
-@ApiUseTags('order-op')
+@ApiUseTags('role-op')
 @ApiBearerAuth()
 export class OrderOpController extends BaseController {
   constructor(private readonly orderOpService: OrderOpService) {
@@ -87,7 +87,7 @@ export class OrderOpController extends BaseController {
     return this.successXlsx([], res, '订单');
   }
 
-  @Get('/op/orders-by-order-ids')
+  @Get('/op/orders-by-role-ids')
   @UseGuards(OpSessionGuard)
   @ApiOperation({ title: '按订单号批量查询' })
   async opIndexByOrderIds(
@@ -197,7 +197,7 @@ export class OrderOpController extends BaseController {
 }
 
 @Controller('/api/v1/uc')
-@ApiUseTags('order-uc')
+@ApiUseTags('role-uc')
 @ApiBearerAuth()
 export class OrderUcController extends BaseController {
   constructor(private readonly orderUcService: OrderUcService) {
@@ -281,7 +281,7 @@ export class OrderUcController extends BaseController {
     return this.success();
   }
 
-  @Get('/count-by-order-state')
+  @Get('/count-by-role-state')
   @UseGuards(UcSessionGuard)
   @ApiOperation({ title: '通过订单状态获取订单数量' })
   async ucCountByOrderState(

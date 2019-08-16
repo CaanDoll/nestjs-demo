@@ -1,8 +1,8 @@
 import { ConfigService, ENODE_ENV } from '@common/config/index.service';
 import { BizFailedExceptionFilter } from '@common/http/biz-failed';
-import { Logger } from '@common/logger/index.service';
-import { startLoggerMiddleware } from '@common/middleware/logger';
-import { ValidationPipe } from '@common/util/validation-pipe';
+import { Logger } from '@common/logger/logger.service';
+import { startLoggerMiddleware } from '@common/middleware/logger/logger.interceptor';
+import { ValidationPipe } from '@common/middleware/validation.pipe';
 import { NestFactory } from '@nestjs/core';
 import {
   ExpressAdapter,

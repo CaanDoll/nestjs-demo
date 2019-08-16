@@ -1,15 +1,10 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Logger } from '../logger/index.service';
-
-export const startLoggerMiddleware = async (req, res, next) => {
-  Logger.log(`${req.method} ${req.url}`, 'StartLoggerMiddleware');
-  next();
-};
+import { Logger } from '../../logger/logger.service';
 
 @Injectable()
-export class LoggingInterceptor implements NestInterceptor {
+export class LoggerInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const now = Date.now();
     const request = context.switchToHttp().getRequest();

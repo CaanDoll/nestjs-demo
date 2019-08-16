@@ -5,13 +5,10 @@ import { createLogger, format, transports } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
 import { ConfigService, ENODE_ENV } from '../config/index.service';
 const configService = ConfigService.getInstance();
-const elkHost = configService.get('elk');
-// tslint:disable-next-line:no-var-requires
-const WinstonElasticsearch = require('winston-elasticsearch');
 
 const { combine, timestamp, printf } = format;
 
-const isProduction = process.env.NODE_ENV === ENODE_ENV.production;
+const isProduction = configService.get('NODE_ENV') === ENODE_ENV.production;
 
 const logger = createLogger({
   // 日志格式化为"2001-01-01 00:00:00 [3612] [INFO] [NestApplication] Nest application successfully started"
@@ -35,14 +32,6 @@ const logger = createLogger({
     }),
   ],
 });
-
-if (elkHost) {
-  logger.add(new WinstonElasticsearch({
-    client: {
-      host: elkHost,
-    },
-  }));
-}
 
 if (isProduction) {
   logger.add(new DailyRotateFile({

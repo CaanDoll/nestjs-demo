@@ -1,4 +1,4 @@
-import { Config } from '../../micro-service-a/config/index.interface';
+import { Config } from '../../micro-service-user/config/index.interface';
 import { IsEnum, IsNotEmpty, IsOptional, IsString, validate } from 'class-validator';
 import * as path from 'path';
 

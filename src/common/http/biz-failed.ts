@@ -1,5 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
-import { IResponse } from '../base/controller';
+import { IResponse } from '../base/base.controller';
 
 export class BizFailedException extends HttpException {
   constructor(data: IResponse<any>) {

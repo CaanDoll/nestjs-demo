@@ -2,7 +2,7 @@ import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { ENODE_ENV } from '../config/index.service';
-import { Logger } from '../logger/index.service';
+import { Logger } from '../logger/logger.service';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {

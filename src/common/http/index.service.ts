@@ -1,9 +1,9 @@
-import { Integration } from '../../micro-service-a/config/index.interface';
+import { Integration } from '../../micro-service-user/config/index.interface';
 import { Injectable } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import { ConfigService } from '../config/index.service';
 import { BizFailedException } from '../http/biz-failed';
-import { Logger } from '../logger/index.service';
+import { Logger } from '../logger/logger.service';
 
 interface IAxiosInstances {
   [propsName: string]: AxiosInstance;

@@ -2,7 +2,7 @@ import { IntegrationService } from '../../integration/index.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Between, In, Like, Repository } from 'typeorm';
-import { Order } from './index.model';
+import { Order } from './user.model';
 
 @Injectable()
 export class OrderMsService {

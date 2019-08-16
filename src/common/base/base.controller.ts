@@ -1,5 +1,5 @@
 import { IColumn, json2excel } from '@common/util/json2excel';
-import { error, ErrorType } from '../../micro-service-a/error/index';
+import { error, ErrorType } from '../../micro-service-user/error/index';
 import { Header } from '@nestjs/common';
 
 const { npm_package_code } = process.env;

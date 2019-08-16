@@ -1,4 +1,4 @@
-import { BasePageDto } from '@common/base/dto';
+import { BasePageDto } from '@common/base/base.dto';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import {
   ArrayContains,
@@ -18,7 +18,7 @@ import {
   EnumIsForeign,
   OrderQuotationType,
   OrderSource,
-} from './index.enum';
+} from './user.enum';
 
 export class OpIndexDto extends BasePageDto {
   @IsOptional()
