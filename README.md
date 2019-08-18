@@ -1,57 +1,44 @@
-
 ## 目录结构
 
 ```bash
-.
-├── README.md
-├── nest-cli.json # 脚手架配置
-├── package-lock.json
-├── package.json
-├── src
-│   ├── app.module.ts # 入口 module
-│   ├── common # 公用模块（submodule）
-│   │   ├── base # 基类
-│   │   │   ├── base.controller.ts # Controller 基类
-│   │   │   ├── base.dto.ts # DAO 基类
-│   │   │   └── base.model.ts # Model 基类
-│   │   ├── config # 配置 module
-│   │   ├── http # 请求 module（对外发送请求）
-│   │   ├── logger # 日志 module
-│   │   ├── middleware # 中间件
-│   │   └── util # 公用方法
-│   │       ├── gen-biz-id.ts # 生成 Gid
-│   │       ├── json2excel.ts # json 转 excel
-│   │       ├── typeorm-transformer.ts # typeorm 转换方法
-│   │       └── validation.pipe.ts # 验证管道
-│   ├── config # 配置 module 读取的文件
-│   │   ├── develop.ts
-│   │   ├── index.interface.ts
-│   │   ├── local.ts
-│   │   ├── production.ts
-│   │   └── test.ts
-│   ├── error # 错误枚举
-│   │   └── index.ts
-│   ├── integration # 向外发送请求的方法
-│   │   ├── user.module.ts
-│   │   └── user.service.ts
-│   ├── main.ts # 入口文件
-│   └── module # 业务 module
-│       ├── officer # 工单 model
-│       │   └── user.base.model.ts
-│       ├── order # 订单业务
-│       │   ├── user.base.controller.ts
-│       │   ├── user.base.dto.ts # 校验转换入参
-│       │   ├── user.enum.ts
-│       │   ├── user.base.model.ts
-│       │   ├── user.module.ts
-│       │   └── user.service.ts
-│       ├── pay # 支付 model
-│       │   └── user.base.model.ts
-│       ├── product # 产品 model
-│       │   └── user.base.model.ts
-│       └── refund # 退款 model
-│           └── user.base.model.ts
-├── tsconfig.json
-├── tslint.json
-└── yarn.lock
+# common
+├── base # 基类
+│   ├── base.controller.ts # Controller 基类
+│   ├── base.dto.ts # Dto 基类
+│   └── base.model.ts # Model 基类
+├── config # 配置读取 module
+├── http # 请求 module（对外发送请求）
+├── logger # 日志 module
+├── middleware # 中间件（包括管道、异常捕获器、守卫、拦截器）
+│   ├── biz-failed # 业务失败处理
+│   ├── logger # 日志处理
+│   └── session # 鉴权处理
+└── util # 公用方法
 ```
+
+```bash
+# micro-service
+├── app.module.ts # 全局 module
+├── main.ts # 入口文件
+├── config # 配置文件
+│   ├── develop.ts
+│   ├── config.interface.ts
+│   ├── local.ts
+│   ├── production.ts
+│   └── test.ts
+├── biz-failed # 错误枚举
+│   └── biz-failed.enum.ts
+├── integration # 向外发送请求的方法
+│   ├── user.module.ts
+│   └── user.service.ts
+└── module # 业务 module
+    ├── user # 用户 业务
+    │   ├── user.module.ts # 用户 module
+    │   ├── user.model.ts # 用户 model
+    │   ├── user.controller.ts # 用户 controller
+    │   ├── user.dto.ts # 用户入参
+    │   ├── user.result.ts # 用户出参
+    │   ├── user.enum.ts # 用户相关枚举
+    │   └── user.service.ts # 用户 service 
+    ├── role # 角色 业务
+        └── 同上

@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "outDir": "../../dist/micro-service-user",
+    "baseUrl": "./",
+    "paths": {
+      "@common/*": [
+        "../common/*"
+      ]
+    }
+  }
+}

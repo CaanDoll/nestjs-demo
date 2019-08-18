@@ -1,13 +1,6 @@
 {
   "name": "micro-service-demo",
   "version": "0.0.1",
-  "scripts": {
-    "format": "prettier --write 'src/**/*.ts'",
-    "dev:a": "nodemon --watch 'src/**/*' -e ts --exec ts-node -r tsconfig-paths/register src/micro-service-user/main.ts",
-    "build": "rimraf dist && tsc -p --removeComments --strict --skipLibCheck",
-    "startup": "node dist/main.js",
-    "lint": "tslint -p tsconfig.json -c tslint.json"
-  },
   "dependencies": {
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
@@ -19,7 +12,6 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.9.1",
     "connect-redis": "^3.4.1",
-    "cookie-parser": "^1.4.4",
     "express-session": "^1.16.2",
     "moment": "^2.24.0",
     "mysql": "^2.17.1",
@@ -31,6 +23,7 @@
     "rxjs": "^6.3.3",
     "swagger-ui-express": "^4.0.7",
     "typeorm": "^0.2.18",
+    "uuid": "^3.3.2",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^3.10.0",
     "winston-elasticsearch": "^0.7.12"
