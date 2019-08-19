@@ -43,20 +43,16 @@ export class UserService {
     const {
       name,
     } = query;
-
-    interface IFilter {
-      name?: any;
+    const qb = this.userRepository.createQueryBuilder('user');
+    qb
+      .select('username')
+      .select('name','aliasName')
+      .offset((query.getCurrent() - 1) * query.getPageSize())
+      .limit(query.getPageSize());
+    if(name){
+      qb.where('name Like %:name%',{name})
     }
-
-    const filterParams: IFilter = {};
-    if (name) {
-      filterParams.name = Like(`%${name}%`);
-    }
-    return this.userRepository.findAndCount({
-      where: filterParams,
-      skip: (query.getCurrent() - 1) * query.getPageSize(),
-      take: query.getPageSize(),
-    });
+    return qb.getManyAndCount();
   }
 
   async showStatus(data) {
