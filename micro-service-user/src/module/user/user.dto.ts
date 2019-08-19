@@ -24,3 +24,7 @@ export class IndexDto extends BasePageDto {
   @IsString()
   name?: string;
 }
+
+export class ShowStatusDto {
+  userUuid: string;
+}

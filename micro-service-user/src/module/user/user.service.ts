@@ -5,7 +5,7 @@ import { Like, Repository } from 'typeorm';
 import { BizFailedCodeEnum } from '../../biz-failed/biz-failed.enum';
 import { UserModel } from './user.model';
 import { RedisService } from 'nestjs-redis';
-import nanoid = require('nanoid');
+const nanoid = require('nanoid');
 
 @Injectable()
 export class UserService {
@@ -56,6 +56,19 @@ export class UserService {
       where: filterParams,
       skip: (query.getCurrent() - 1) * query.getPageSize(),
       take: query.getPageSize(),
+    });
+  }
+
+  async showStatus(data) {
+    const {
+      userUuid,
+    } = data;
+
+    return this.userRepository.findOne({
+      where: {
+        userUuid,
+      },
+      select: ['status'],
     });
   }
 }

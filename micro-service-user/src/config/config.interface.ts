@@ -1,18 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { RedisModuleOptions } from 'nestjs-redis';
-
-export class Integration {
-  product: string;
-  customer: string;
-  finance: string;
-  officer: string;
-  richman: string;
-  mailboy: string;
-  actions: string;
-  knight: string;
-  openapi: string;
-  uploadUrl: string;
-}
+import { RmqOptions } from '@nestjs/microservices';
 
 export interface IConfig {
   port: number;
@@ -21,5 +9,5 @@ export interface IConfig {
 
   redis: RedisModuleOptions;
 
-  integration: Integration;
+  rabbit: RmqOptions;
 }

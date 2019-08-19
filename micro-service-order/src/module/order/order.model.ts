@@ -9,12 +9,12 @@ import {
 })
 export class OrderModel extends BaseModel {
   @Column({
-    comment: '订单号',
-    name: 'order_no',
-    type: 'varchar',
-    length: 50,
+    comment: '总金额',
+    name: 'total_mount',
+    type: 'int',
+    length: 11,
   })
-  orderNo: string;
+  totalMount: number;
 
   @Column({
     comment: '描述',

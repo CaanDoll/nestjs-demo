@@ -13,6 +13,9 @@
     "paths": {
       "@common/*": [
         "../common/*"
+      ],
+      "@micro-service-user/*": [
+        "../micro-service-user/src/*"
       ]
     }
   }

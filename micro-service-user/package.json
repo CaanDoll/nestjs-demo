@@ -1,5 +1,5 @@
 {
-  "name": "user",
+  "name": "micro-service-user",
   "description": "用户",
   "code": "1001",
   "version": "0.0.1",

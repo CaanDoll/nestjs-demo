@@ -5,3 +5,7 @@ export class LoginResult {
 }
 
 export class IndexResult extends UserModel {}
+
+export class ShowStatusResult {
+  status: number;
+}

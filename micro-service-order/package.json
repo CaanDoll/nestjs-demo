@@ -1,5 +1,5 @@
 {
-  "name": "order",
+  "name": "micro-service-order",
   "description": "订单",
   "code": "1002",
   "version": "0.0.1",

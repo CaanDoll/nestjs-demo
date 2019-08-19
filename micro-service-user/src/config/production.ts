@@ -1,6 +1,5 @@
 import { IConfig } from './config.interface';
-
-const KONG_URL = 'http://kong-proxy:8000';
+import { Transport } from '@nestjs/microservices';
 
 const config: IConfig = {
   port: 4000,
@@ -22,17 +21,13 @@ const config: IConfig = {
     db: 0,
     keyPrefix: '',
   },
-  integration: {
-    product: `${KONG_URL}/product`,
-    customer: `${KONG_URL}/customer`,
-    finance: `${KONG_URL}/finance`,
-    officer: `${KONG_URL}/officer`,
-    richman: `${KONG_URL}/richman`,
-    mailboy: `${KONG_URL}/mailboy`,
-    actions: `${KONG_URL}/actions`,
-    knight: `${KONG_URL}/knight`,
-    openapi: 'http://openapi-master:4000',
-    uploadUrl: 'http://oss-master:4000',
+  rabbit: {
+    transport: Transport.RMQ,
+    options: {
+      urls: [`amqp://localhost:5672`],
+      queue: 'mail',
+      queueOptions: { durable: false },
+    },
   },
 };
 

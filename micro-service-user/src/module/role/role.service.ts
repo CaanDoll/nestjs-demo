@@ -7,11 +7,11 @@ import { RoleModel } from './role.model';
 export class RoleService {
   constructor(
     @InjectRepository(RoleModel)
-    private readonly roleRepository: Repository<RoleModel>,
+    private readonly roleModelRepository: Repository<RoleModel>,
   ) {
   }
 
-  async opIndex(query) {
+  async index(query) {
     const {
       name,
     } = query;
@@ -24,7 +24,7 @@ export class RoleService {
     if (name) {
       filterParams.name = Like(`%${name}%`);
     }
-    return this.roleRepository.findAndCount({
+    return this.roleModelRepository.findAndCount({
       where: filterParams,
       skip: (query.getCurrent() - 1) * query.getPageSize(),
       take: query.getPageSize(),

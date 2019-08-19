@@ -11,6 +11,7 @@ import {
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { bizFailedDesc } from './biz-failed/biz-failed.enum';
+import { userGrpc } from './module/user/user.grpc';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
@@ -20,13 +21,15 @@ async function bootstrap() {
       logger: new Logger(),
     },
   );
-
   const configService: ConfigService = app
     .get('ConfigService');
+  
+  app.connectMicroservice(userGrpc);
+  app.connectMicroservice(configService.get('rabbit'));
+
   const SWAGGER_PATH = 'swagger';
   const NODE_ENV = configService.get('NODE_ENV');
   const IS_PRODUCTION = NODE_ENV === ENODE_ENV.production;
-
   if (!IS_PRODUCTION) {
     const options = new DocumentBuilder()
       .setTitle(configService.get('npm_package_name'))
@@ -43,6 +46,7 @@ async function bootstrap() {
   app.useGlobalFilters(new BizFailedExceptionFilter(bizFailedDesc)); // 全局捕获业务失败
 
   const port = configService.get('port');
+  await app.startAllMicroservicesAsync();
   await app.listen(port);
   Logger.log(`App listening on ${port}, env: ${NODE_ENV}`, 'NestApplication');
   if (!IS_PRODUCTION)Logger.log(`Swagger doc setup http://127.0.0.1:${port}/${SWAGGER_PATH}`, 'NestApplication');

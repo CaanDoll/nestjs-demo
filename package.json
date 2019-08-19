@@ -2,8 +2,10 @@
   "name": "micro-service-demo",
   "version": "0.0.1",
   "dependencies": {
+    "@grpc/proto-loader": "^0.5.1",
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
+    "@nestjs/microservices": "^6.5.3",
     "@nestjs/platform-express": "^6.0.0",
     "@nestjs/swagger": "^3.0.2",
     "@nestjs/typeorm": "^6.1.2",
@@ -11,6 +13,7 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.9.1",
     "dayjs": "^1.8.15",
+    "grpc": "^1.22.2",
     "mysql2": "^1.6.5",
     "nestjs-redis": "^1.2.1",
     "reflect-metadata": "^0.1.12",
