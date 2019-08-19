@@ -1,15 +1,16 @@
-import { BizFailedException } from '../../../../common/http/biz-failed';
+import { BizFailedException } from '@common/middleware/biz-failed/biz-failed.exception';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { BizFailedCodeEnum } from '../../biz-failed/biz-failed.enum';
-import { IntegrationService } from '../../integration/index.service';
 import { UserModel } from './user.model';
+import { RedisService } from 'nestjs-redis';
+import nanoid = require('nanoid');
 
 @Injectable()
 export class UserService {
   constructor(
-    private readonly integrationService: IntegrationService,
+    private readonly redisService: RedisService,
     @InjectRepository(UserModel)
     private readonly userRepository: Repository<UserModel>,
   ) {
@@ -29,20 +30,13 @@ export class UserService {
     });
 
     if (!user) {
-      throw BizFailedException(BizFailedCodeEnum.USERNAME_OR_PASSWORD_WRONG);
+      throw new BizFailedException(BizFailedCodeEnum.USERNAME_OR_PASSWORD_WRONG);
     }
 
     const redisServiceClient = this.redisService.getClient();
-
-    const filterParams: IFilter = {};
-    if (name) {
-      filterParams.name = Like(`%${name}%`);
-    }
-    return this.userRepository.findAndCount({
-      where: filterParams,
-      skip: (query.getCurrent() - 1) * query.getPageSize(),
-      take: query.getPageSize(),
-    });
+    const sid = nanoid();
+    await redisServiceClient.set(sid,JSON.stringify(user),'EX',24 * 60 * 60);
+    return sid;
   }
 
   async index(query) {

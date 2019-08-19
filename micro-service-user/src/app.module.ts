@@ -1,14 +1,14 @@
-import { ConfigModule } from '@common/config/index.module';
-import { ConfigService } from '@common/config/index.service';
+import { ConfigModule } from '@common/config/config.module';
+import { ConfigService } from '@common/config/config.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { RedisModule, RedisModuleOptions } from 'nestjs-redis';
 import { RoleModule } from './module/role/role.module';
+import { UserModule } from './module/user/user.module';
 
 @Module({
   imports: [
     ConfigModule,
-    RoleModule,
     TypeOrmModule.forRootAsync({
       imports: [ ConfigModule ],
       inject: [ ConfigService ],
@@ -19,6 +19,8 @@ import { RoleModule } from './module/role/role.module';
       inject: [ ConfigService ],
       useFactory: (configService: ConfigService) => configService.get('redis') as RedisModuleOptions,
     }),
+    UserModule,
+    RoleModule,
   ],
 })
 export class AppModule {}

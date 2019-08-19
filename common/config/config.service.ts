@@ -1,6 +1,5 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsString, validateSync } from 'class-validator';
 import * as path from 'path';
-import { Config } from '../../micro-service-user/src/config/config.interface';
 
 export enum ENODE_ENV {
   local= 'local',
@@ -37,7 +36,9 @@ if (errors.length) {
   throw new Error(`EnvVar validation error: ${JSON.stringify(errors)}`);
 }
 
-interface IAllConfig extends EnvVar, Config {}
+interface IAllConfig extends EnvVar {
+  [propName: string]: any
+}
 
 let instance;
 export class ConfigService {
@@ -46,8 +47,8 @@ export class ConfigService {
   constructor() {
     const { npm_package_name, npm_package_version, npm_package_description, NODE_ENV } = process.env;
     const env = NODE_ENV as ENODE_ENV || ENODE_ENV.local;
-    const config = require(path.join(process.cwd(), 'config', env)).default;
-    this.validateConfig(config);
+    const config = require(path.join(process.cwd(), 'src/config', env)).default;
+    // this.validateConfig(config);
     this.config = {
       ...config,
       NODE_ENV: env,
@@ -69,7 +70,7 @@ export class ConfigService {
   }
 
   // 校验config
-  private validateConfig(config) {
+  /*private validateConfig(config) {
     const errors = validateSync(Object.assign(new Config(), config), {
       whitelist: true,
       forbidNonWhitelisted: true,
@@ -80,6 +81,6 @@ export class ConfigService {
       });
       throw new Error(`Config validation error: ${JSON.stringify(errors)}`);
     }
-  }
+  }*/
 
 }

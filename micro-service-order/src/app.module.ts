@@ -1,5 +1,5 @@
-import { ConfigModule } from '../../common/config/index.module';
-import { ConfigService } from '../../common/config/index.service';
+import { ConfigModule } from '@common/config/config.module';
+import { ConfigService } from '@common/config/config.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { RedisModule, RedisModuleOptions } from 'nestjs-redis';

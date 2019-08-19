@@ -1,8 +1,8 @@
-import { Config } from './config.interface';
+import { IConfig } from './config.interface';
 
 const KONG_URL = 'http://127.0.0.1:8000';
 
-const config: Config = {
+const config: IConfig = {
   port: 4000,
   typeorm: {
     type: 'mysql',

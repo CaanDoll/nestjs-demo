@@ -1,10 +1,12 @@
-import { BaseModel } from '../../../../common/base/base.model';
+import { BaseModel } from '@common/base/base.model';
 import {
   Column,
   Entity,
 } from 'typeorm';
 
-@Entity()
+@Entity({
+  name: 'order'
+})
 export class OrderModel extends BaseModel {
   @Column({
     comment: '订单号',

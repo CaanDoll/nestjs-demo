@@ -1,5 +1,4 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { IsInt, IsNotEmpty } from 'class-validator';
 import { RedisModuleOptions } from 'nestjs-redis';
 
 export class Integration {
@@ -15,17 +14,12 @@ export class Integration {
   uploadUrl: string;
 }
 
-export class Config {
-  @IsNotEmpty()
-  @IsInt()
+export interface IConfig {
   port: number;
 
-  @IsNotEmpty()
   typeorm: TypeOrmModuleOptions;
 
-  @IsNotEmpty()
   redis: RedisModuleOptions;
 
-  @IsNotEmpty()
   integration: Integration;
 }

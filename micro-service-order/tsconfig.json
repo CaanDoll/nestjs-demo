@@ -1,7 +1,14 @@
 {
-  "extends": "../tsconfig",
   "compilerOptions": {
-    "outDir": "../../dist/micro-service-user",
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "sourceMap": true,
+    "incremental": true,
+    "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@common/*": [

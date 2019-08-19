@@ -1,5 +1,4 @@
 {
-  "extends": "../tsconfig",
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
@@ -9,7 +8,7 @@
     "target": "esnext",
     "sourceMap": true,
     "incremental": true,
-    "outDir": "../../dist/micro-service-user",
+    "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@common/*": [

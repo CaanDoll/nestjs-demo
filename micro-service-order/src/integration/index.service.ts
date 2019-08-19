@@ -1,4 +1,4 @@
-import { HttpService } from '../../../common/http/index.service';
+import { HttpService } from '@common/http/index.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

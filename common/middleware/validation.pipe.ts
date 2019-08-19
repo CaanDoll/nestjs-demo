@@ -1,12 +1,13 @@
 import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { ENODE_ENV } from '../config/index.service';
+import { ENODE_ENV } from '../config/config.service';
 import { Logger } from '../logger/logger.service';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
   async transform(value, metadata: ArgumentMetadata) {
+    console.log('validate');
     const { metatype } = metadata;
     if (!metatype || !this.toValidate(metatype)) {
       return value;

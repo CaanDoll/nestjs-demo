@@ -4,7 +4,9 @@ import {
   Entity,
 } from 'typeorm';
 
-@Entity()
+@Entity({
+  name: 'role'
+})
 export class RoleModel extends BaseModel {
   @Column({
     comment: '名称',

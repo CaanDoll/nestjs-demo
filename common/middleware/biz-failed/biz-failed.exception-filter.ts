@@ -1,6 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
 import { IResponse } from '../../base/base.controller';
-import { ConfigService } from '../../config/index.service';
+import { ConfigService } from '../../config/config.service';
 import { BizFailedException } from './biz-failed.exception';
 const configService = ConfigService.getInstance();
 
@@ -14,7 +14,7 @@ export class BizFailedExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const body: IResponse<any> = {
-      code: `${configService.get('npm_package_code')}${bizFailedCode}`,
+      code: Number(`${configService.get('npm_package_code')}${bizFailedCode}`),
       message: this.bizFailedDesc[bizFailedCode],
     };
     response

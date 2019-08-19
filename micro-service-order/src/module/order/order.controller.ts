@@ -1,9 +1,9 @@
 import {
   BaseController,
   IPageResponse,
-} from '../../../../common/base/base.controller';
-import { LoggerInterceptor } from '../../../../common/middleware/logger/logger.interceptor';
-import { SessionGuard } from '../../../../common/middleware/session/session.guard';
+} from '@common/base/base.controller';
+import { LoggerInterceptor } from '@common/middleware/logger/logger.interceptor';
+import { SessionGuard } from '@common/middleware/session/session.guard';
 import {
   Controller,
   Get,

@@ -31,14 +31,12 @@ export abstract class BaseModel {
   @CreateDateColumn({
     comment: '创建时间',
     name: 'create_time',
-    type: 'int',
   })
   createTime: number;
 
   @UpdateDateColumn({
     comment: '更新时间',
     name: 'update_time',
-    type: 'int',
   })
   updateTime: number;
 

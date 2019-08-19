@@ -1,24 +1,23 @@
-import { Config } from './config.interface';
+import { IConfig } from './config.interface';
 
 const KONG_URL = 'http://10.8.241.147:8000';
 
-const config: Config = {
-  port: 4000,
+const config: IConfig = {
+  port: 4001,
   typeorm: {
     type: 'mysql',
-    host: '10.10.4.100',
-    port: 30991,
+    host: 'localhost',
+    port: 3306,
     username: 'root',
-    password: 'mysql123',
-    database: 'order_nest',
+    password: 'root123456',
+    database: 'nestjs_demo_user',
     logging: true,
     entities: [ 'src/module/**/*.model.ts' ],
-    timezone: '+00:00',
+    timezone: '+08:00',
   },
   redis: {
-    host: '10.10.4.101',
-    port: 31104,
-    password: 'kunlun_2019$ABC',
+    host: 'localhost',
+    port: 6379,
     db: 0,
     keyPrefix: '',
   },

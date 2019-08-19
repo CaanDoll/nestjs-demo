@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
-import { IntegrationService } from '../../integration/index.service';
 import { RoleModel } from './role.model';
 
 @Injectable()
 export class RoleService {
   constructor(
-    private readonly integrationService: IntegrationService,
     @InjectRepository(RoleModel)
     private readonly roleRepository: Repository<RoleModel>,
   ) {

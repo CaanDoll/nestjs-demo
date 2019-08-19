@@ -1,9 +1,9 @@
 import { LoggerService } from '@nestjs/common';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import * as path from 'path';
 import { createLogger, format, transports } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
-import { ConfigService, ENODE_ENV } from '../config/index.service';
+import { ConfigService, ENODE_ENV } from '../config/config.service';
 const configService = ConfigService.getInstance();
 
 const { combine, timestamp, printf } = format;
@@ -20,8 +20,8 @@ const logger = createLogger({
         // @ts-ignore
         const SPLAT = meta[Symbol.for('splat')];
         // @ts-ignore
-        const context = SPLAT.length ? SPLAT[0] : 'Undefined';
-        return `${ moment(timestamp).format('YYYY-MM-DD HH:mm:ss') } [${process.pid}] [${ level.toUpperCase() }] [${context}] ${message}`;
+        const context = SPLAT && SPLAT.length ? SPLAT[0] : 'Undefined';
+        return `${ dayjs(timestamp).format('YYYY-MM-DD HH:mm:ss') } [${process.pid}] [${ level.toUpperCase() }] [${context}] ${message}`;
       },
     ),
   ),

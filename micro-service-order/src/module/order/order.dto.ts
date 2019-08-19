@@ -1,4 +1,4 @@
-import { BasePageDto } from '../../../../common/base/base.dto';
+import { BasePageDto } from '@common/base/base.dto';
 import { ApiModelPropertyOptional } from '@nestjs/swagger';
 import {
   IsOptional,
