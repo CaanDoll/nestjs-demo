@@ -43,7 +43,7 @@ export class OrderController extends BaseController implements IOrderInterface,O
   }
 
   @Get('/')
-  @UseGuards(SessionGuard)
+  // @UseGuards(SessionGuard)
   @UseInterceptors(LoggerInterceptor)
   @ApiOperation({ title: '订单列表查询' })
   async index(@Query() query: IndexDto){

@@ -51,7 +51,6 @@ export class UserController extends BaseController implements IUserInterface{
 
   @GrpcMethod('UserService', 'ShowStatus')
   async showStatus(data) {
-    console.log(data);
     return await this.userService.showStatus(data);
   }
 
