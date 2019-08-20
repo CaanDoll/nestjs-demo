@@ -1,3 +1,3 @@
-import { OrderModel } from './order.model';
+export class IndexResult{
 
-export class IndexResult extends OrderModel {}
+}

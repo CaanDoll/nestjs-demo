@@ -5,6 +5,7 @@ import { Like, Repository } from 'typeorm';
 import { BizFailedCodeEnum } from '../../biz-failed/biz-failed.enum';
 import { UserModel } from './user.model';
 import { RedisService } from 'nestjs-redis';
+import { IndexDto } from './user.dto';
 const nanoid = require('nanoid');
 
 @Injectable()
@@ -39,18 +40,17 @@ export class UserService {
     return sid;
   }
 
-  async index(query) {
+  async index(query: IndexDto) {
     const {
-      name,
+      username,
     } = query;
     const qb = this.userRepository.createQueryBuilder('user');
     qb
-      .select('username')
-      .select('name','aliasName')
+      .leftJoinAndSelect('user.roleUuid','role')
       .offset((query.getCurrent() - 1) * query.getPageSize())
       .limit(query.getPageSize());
-    if(name){
-      qb.where('name Like %:name%',{name})
+    if(username){
+      qb.where('username LIKE :username',{username: `%${username}%`})
     }
     return qb.getManyAndCount();
   }

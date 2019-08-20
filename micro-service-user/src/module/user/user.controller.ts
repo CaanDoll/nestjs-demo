@@ -11,7 +11,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiUseTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 import {
   IndexDto,
   LoginDto,
@@ -21,6 +21,7 @@ import {
 } from './user.service';
 import { EventPattern, GrpcMethod } from '@nestjs/microservices';
 import { IUserInterface } from './user.interface';
+import { IndexResult, LoginResult } from './user.result';
 
 @Controller('/api/v1/users')
 @ApiUseTags('user')
@@ -33,6 +34,7 @@ export class UserController extends BaseController implements IUserInterface{
   @Post('/login')
   @UseInterceptors(LoggerInterceptor)
   @ApiOperation({ title: '登录' })
+  @ApiOkResponse({type: LoginResult})
   async login(@Body() body: LoginDto){
     const token = await this.userService.login(body);
     return this.success({
@@ -42,8 +44,9 @@ export class UserController extends BaseController implements IUserInterface{
 
   @Get('/')
   @UseInterceptors(LoggerInterceptor)
-  // @UseGuards(SessionGuard)
+  @UseGuards(SessionGuard)
   @ApiOperation({ title: '用户列表查询' })
+  @ApiOkResponse({type: IndexResult})
   async index(@Query() query: IndexDto){
     const res = await this.userService.index(query);
     return this.successPageData(res);

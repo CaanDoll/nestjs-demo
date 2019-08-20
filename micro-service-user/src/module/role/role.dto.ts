@@ -7,7 +7,10 @@ import {
 
 export class IndexDto extends BasePageDto {
   @IsOptional()
-  @ApiModelPropertyOptional()
+  @ApiModelPropertyOptional({
+    description: '角色名称模糊',
+    example: 'test_r'
+  })
   @IsString()
   name?: string;
 }

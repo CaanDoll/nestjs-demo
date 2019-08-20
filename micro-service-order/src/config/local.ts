@@ -10,6 +10,7 @@ const config: IConfig = {
     password: 'root123456',
     database: 'nestjs_demo_order',
     logging: true,
+    synchronize: false,
     entities: [ 'src/module/**/*.model.ts' ],
     timezone: '+08:00',
   },

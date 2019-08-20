@@ -1,3 +1,9 @@
-import { RoleModel } from './role.model';
+import { ApiModelProperty } from '@nestjs/swagger';
 
-export class IndexResult extends RoleModel {}
+export class IndexResult{
+  @ApiModelProperty({
+    description:'名称',
+    example: 'test_role',
+  })
+  name: string;
+}

@@ -8,21 +8,30 @@ import {
 
 export class LoginDto {
   @IsNotEmpty()
-  @ApiModelProperty()
+  @ApiModelProperty({
+    description: '账户名',
+    example: 'test_username'
+  })
   @IsString()
   username: string;
 
   @IsNotEmpty()
-  @ApiModelProperty()
+  @ApiModelProperty({
+    description: '密码',
+    example: 'test_password'
+  })
   @IsString()
   password: string;
 }
 
 export class IndexDto extends BasePageDto {
   @IsOptional()
-  @ApiModelPropertyOptional()
+  @ApiModelPropertyOptional({
+    description: '账户名模糊',
+    example: 'test_u'
+  })
   @IsString()
-  name?: string;
+  username?: string;
 }
 
 export class ShowStatusDto {

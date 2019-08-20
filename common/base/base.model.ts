@@ -27,7 +27,7 @@ export abstract class BaseModel {
     length: 36,
     transformer: new UuidTransformer(),
   })
-  @Index({
+  @Index('uuid',{
     unique: true,
   })
   uuid: string;

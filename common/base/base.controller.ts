@@ -18,7 +18,7 @@ export interface IPageResponse<T> {
 export abstract class BaseController {
   protected success(data?: any): IResponse<any> {
     const body: IResponse<any> = {
-      code: 200,
+      code: 0,
       message: 'success',
     };
     if (data) body.data = data;
@@ -27,7 +27,7 @@ export abstract class BaseController {
 
   protected successPageData(data: IPageData<any>): IPageResponse<any> {
     return {
-      code: 200,
+      code: 0,
       message: 'success',
       data: {
         list: data[0],

@@ -2,7 +2,7 @@ import { ConfigService, ENODE_ENV } from '@common/config/config.service';
 import { Logger } from '@common/logger/logger.service';
 import { BizFailedExceptionFilter } from '@common/middleware/biz-failed/biz-failed.exception-filter';
 import { startLoggerMiddleware } from '@common/middleware/logger/start-logger.middleware';
-import { ValidationPipe } from '@common/middleware/validation.pipe';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   ExpressAdapter,
@@ -39,7 +39,12 @@ async function bootstrap() {
   }
 
   app.use(startLoggerMiddleware); // 全局http访问初始日志
-  app.useGlobalPipes(new ValidationPipe()); // 全局接口参数验证+参数转换
+  app.useGlobalPipes(new ValidationPipe({
+    disableErrorMessages: IS_PRODUCTION,
+    transform: true,
+    whitelist: true,
+    forbidNonWhitelisted: true,
+  })); // 全局接口参数验证+参数转换
   app.useGlobalFilters(new BizFailedExceptionFilter(bizFailedDesc)); // 全局捕获业务失败
 
   const port = configService.get('port');

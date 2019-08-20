@@ -10,12 +10,13 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiUseTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 import {
   RoleService,
 } from './role.service';
 import { IRoleInterface } from './role.interface';
 import { IndexDto } from './role.dto';
+import { IndexResult } from './role.result';
 
 @Controller('/api/v1/roles')
 @ApiUseTags('role')
@@ -29,6 +30,7 @@ export class RoleController extends BaseController implements IRoleInterface{
   @UseGuards(SessionGuard)
   @UseInterceptors(LoggerInterceptor)
   @ApiOperation({ title: '角色列表查询' })
+  @ApiOkResponse({type: IndexResult})
   async index(@Query() query: IndexDto){
     const res = await this.roleService.index(query);
     return this.successPageData(res);
