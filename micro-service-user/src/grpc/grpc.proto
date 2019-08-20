@@ -7,9 +7,9 @@ service UserService {
 }
 
 message ShowStatusDto {
-  int32 userUuid = 1;
+  required string userUuid = 1;
 }
 
 message ShowStatusResult {
-  int32 status = 1;
+  required int32 status = 2;
 }

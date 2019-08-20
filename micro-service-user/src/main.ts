@@ -11,7 +11,7 @@ import {
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { bizFailedDesc } from './biz-failed/biz-failed.enum';
-import { userGrpc } from './module/user/user.grpc';
+import { grpcOptions } from './grpc/grpc.options';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
@@ -24,8 +24,7 @@ async function bootstrap() {
   const configService: ConfigService = app
     .get('ConfigService');
   
-  app.connectMicroservice(userGrpc);
-  app.connectMicroservice(configService.get('rabbit'));
+  app.connectMicroservice(grpcOptions);
 
   const SWAGGER_PATH = 'swagger';
   const NODE_ENV = configService.get('NODE_ENV');
@@ -41,8 +40,8 @@ async function bootstrap() {
     SwaggerModule.setup(SWAGGER_PATH, app, document);
   }
 
-  app.useGlobalPipes(new ValidationPipe()); // 全局接口参数验证+参数转换
   app.use(startLoggerMiddleware); // 全局http访问初始日志
+  app.useGlobalPipes(new ValidationPipe()); // 全局接口参数验证+参数转换
   app.useGlobalFilters(new BizFailedExceptionFilter(bizFailedDesc)); // 全局捕获业务失败
 
   const port = configService.get('port');

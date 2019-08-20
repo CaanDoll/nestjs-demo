@@ -10,33 +10,38 @@ import {
 } from 'class-validator';
 
 export class IndexDto extends BasePageDto {
-  @IsOptional()
-  @ApiModelPropertyOptional()
+  @IsNotEmpty()
+  @ApiModelProperty({
+    description: '用户uuid',
+    example: '50efab30-6fe1-4a0f-9a43-88f6325e9522'
+  })
   @IsString()
-  name?: string;
+  userUuid: string;
 }
 
 export class CreateDto {
   @IsNotEmpty()
-  @ApiModelProperty()
+  @ApiModelProperty({
+    description: '用户uuid',
+    example: '50efab30-6fe1-4a0f-9a43-88f6325e9522'
+  })
   @IsUUID()
   userUuid: string;
 
   @IsNotEmpty()
-  @ApiModelProperty()
+  @ApiModelProperty({
+    description: '总金额',
+    example: 1
+  })
   @IsInt()
   @Min(1)
   totalMount: number;
 
   @IsOptional()
-  @ApiModelPropertyOptional()
+  @ApiModelPropertyOptional({
+    description: '描述',
+    example: ''
+  })
   @IsString()
   desc?: string;
-}
-
-export class DestroyDto {
-  @IsNotEmpty()
-  @ApiModelProperty()
-  @IsUUID()
-  uuid: string;
 }

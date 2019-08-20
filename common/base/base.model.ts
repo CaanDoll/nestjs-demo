@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   ValueTransformer,
@@ -25,6 +26,9 @@ export abstract class BaseModel {
     type: 'char',
     length: 36,
     transformer: new UuidTransformer(),
+  })
+  @Index({
+    unique: true,
   })
   uuid: string;
 

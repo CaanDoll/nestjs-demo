@@ -16,7 +16,14 @@ export class UserModel extends BaseModel {
     type: 'varchar',
     length: 50,
   })
-  name: string;
+  username: string;
+
+  @Column({
+    comment: '密码',
+    type: 'varchar',
+    length: 200,
+  })
+  password: string;
 
   @Column({
     comment: '描述',

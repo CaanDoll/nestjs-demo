@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "scripts": {
     "format": "prettier --write 'src/**/*.ts'",
-    "dev": "nodemon --watch 'src/**/*' -e ts --exec ts-node -r tsconfig-paths/register src/main.ts",
+    "dev:order": "nodemon --watch 'src/**/*' -e ts --exec ts-node -r tsconfig-paths/register src/main.ts",
     "build": "rimraf dist && tsc -p --removeComments --strict --skipLibCheck",
     "startup": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json"

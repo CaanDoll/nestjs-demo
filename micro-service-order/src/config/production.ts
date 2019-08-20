@@ -1,7 +1,5 @@
 import { IConfig } from './config.interface';
 
-const KONG_URL = 'http://kong-proxy:8000';
-
 const config: IConfig = {
   port: 4000,
   typeorm: {
@@ -21,18 +19,6 @@ const config: IConfig = {
     password: 'kunlun_2019$ABC',
     db: 0,
     keyPrefix: '',
-  },
-  integration: {
-    product: `${KONG_URL}/product`,
-    customer: `${KONG_URL}/customer`,
-    finance: `${KONG_URL}/finance`,
-    officer: `${KONG_URL}/officer`,
-    richman: `${KONG_URL}/richman`,
-    mailboy: `${KONG_URL}/mailboy`,
-    actions: `${KONG_URL}/actions`,
-    knight: `${KONG_URL}/knight`,
-    openapi: 'http://openapi-master:4000',
-    uploadUrl: 'http://oss-master:4000',
   },
 };
 

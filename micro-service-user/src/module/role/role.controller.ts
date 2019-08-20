@@ -15,6 +15,7 @@ import {
   RoleService,
 } from './role.service';
 import { IRoleInterface } from './role.interface';
+import { IndexDto } from './role.dto';
 
 @Controller('/api/v1/roles')
 @ApiUseTags('role')
@@ -28,7 +29,7 @@ export class RoleController extends BaseController implements IRoleInterface{
   @UseGuards(SessionGuard)
   @UseInterceptors(LoggerInterceptor)
   @ApiOperation({ title: '角色列表查询' })
-  async index(@Query() query){
+  async index(@Query() query: IndexDto){
     const res = await this.roleService.index(query);
     return this.successPageData(res);
   }

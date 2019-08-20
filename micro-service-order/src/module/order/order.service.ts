@@ -14,17 +14,15 @@ export class OrderService {
 
   async index(query: IndexDto) {
     const {
-      name,
+      userUuid,
     } = query;
 
     interface IFilter {
-      name?: any;
+      userUuid?: any;
     }
 
     const filterParams: IFilter = {};
-    if (name) {
-      filterParams.name = Like(`%${name}%`);
-    }
+    filterParams.userUuid = userUuid;
     return this.orderModelRepository.findAndCount({
       where: filterParams,
       skip: (query.getCurrent() - 1) * query.getPageSize(),

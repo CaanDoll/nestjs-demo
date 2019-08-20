@@ -12,7 +12,6 @@ export class OrderModel extends BaseModel {
     comment: '总金额',
     name: 'total_mount',
     type: 'int',
-    length: 11,
   })
   totalMount: number;
 

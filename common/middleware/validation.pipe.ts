@@ -7,7 +7,6 @@ import { Logger } from '../logger/logger.service';
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
   async transform(value, metadata: ArgumentMetadata) {
-    console.log('validate');
     const { metatype } = metadata;
     if (!metatype || !this.toValidate(metatype)) {
       return value;

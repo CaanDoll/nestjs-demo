@@ -1,5 +1,4 @@
 import { IConfig } from './config.interface';
-import { Transport } from '@nestjs/microservices';
 
 const config: IConfig = {
   port: 4000,
@@ -20,14 +19,6 @@ const config: IConfig = {
     password: 'kunlun_2019$ABC',
     db: 0,
     keyPrefix: '',
-  },
-  rabbit: {
-    transport: Transport.RMQ,
-    options: {
-      urls: [`amqp://localhost:5672`],
-      queue: 'mail',
-      queueOptions: { durable: false },
-    },
   },
 };
 

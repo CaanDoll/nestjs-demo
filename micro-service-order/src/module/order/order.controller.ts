@@ -6,10 +6,8 @@ import { SessionGuard } from '@common/middleware/session/session.guard';
 import {
   Body,
   Controller,
-  Delete,
   Get,
   OnModuleInit,
-  Param,
   Post,
   Query,
   UseGuards,
@@ -19,23 +17,22 @@ import { ApiBearerAuth, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 import {
   OrderService,
 } from './order.service';
-import { ClientGrpc, Client, ClientRMQ } from '@nestjs/microservices';
+import { ClientGrpc, Client } from '@nestjs/microservices';
 import { BizFailedException } from '@common/middleware/biz-failed/biz-failed.exception';
 import { BizFailedCodeEnum } from '../../biz-failed/biz-failed.enum';
-import { userGrpc } from '@micro-service-user/module/user/user.grpc';
+import { grpcOptions } from '@micro-service-user/grpc/grpc.options';
 import { IUserGrpcInterface } from '@micro-service-user/module/user/user.interface';
 import { IOrderInterface } from './order.interface';
+import { CreateDto, IndexDto } from './order.dto';
 
 @Controller('/api/v1/orders')
 @ApiUseTags('order')
 @ApiBearerAuth()
 export class OrderController extends BaseController implements IOrderInterface,OnModuleInit{
-  @Client(userGrpc)
+  @Client(grpcOptions)
   userGrpcClient: ClientGrpc;
 
   userGrpcService: IUserGrpcInterface;
-
-  userRmqClient: ClientRMQ;
 
   constructor(private readonly orderService: OrderService) {
     super();
@@ -49,16 +46,16 @@ export class OrderController extends BaseController implements IOrderInterface,O
   @UseGuards(SessionGuard)
   @UseInterceptors(LoggerInterceptor)
   @ApiOperation({ title: '订单列表查询' })
-  async index(@Query() query){
+  async index(@Query() query: IndexDto){
     const res = await this.orderService.index(query);
     return this.successPageData(res);
   }
 
   @Post('/')
-  @UseGuards(SessionGuard)
+  // @UseGuards(SessionGuard)
   @UseInterceptors(LoggerInterceptor)
   @ApiOperation({ title: '订单创建' })
-  async create(@Body() body){
+  async create(@Body() body: CreateDto){
     const user = await this.userGrpcService.showStatus({
         userUuid: body.userUuid,
       // @ts-ignore
@@ -70,14 +67,4 @@ export class OrderController extends BaseController implements IOrderInterface,O
     return this.success();
   }
 
-  @Delete('/:uuid')
-  @UseGuards(SessionGuard)
-  @UseInterceptors(LoggerInterceptor)
-  @ApiOperation({ title: '订单删除' })
-  async destroy(@Param() param){
-    await this.orderService.destroy(param);
-    const a = await this.userRmqClient.publish('mail',);
-
-    return this.success();
-  }
 }

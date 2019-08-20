@@ -3,7 +3,7 @@ import { IndexResult, LoginResult, ShowStatusResult } from './user.result';
 import { IndexDto, LoginDto, ShowStatusDto } from './user.dto';
 
 export interface IUserGrpcInterface {
-  showStatus(data: ShowStatusDto): Promise<IResponse<ShowStatusResult>>
+  showStatus(data: ShowStatusDto): Promise<ShowStatusResult>
 }
 
 export interface IUserInterface extends IUserGrpcInterface{
