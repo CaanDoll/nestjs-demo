@@ -22,6 +22,7 @@ import {
 import { EventPattern, GrpcMethod } from '@nestjs/microservices';
 import { IUserInterface } from './user.interface';
 import { IndexResult, LoginResult } from './user.result';
+import { SessionUser } from '@common/middleware/session/session-user.decorator';
 
 @Controller('/api/v1/users')
 @ApiUseTags('user')

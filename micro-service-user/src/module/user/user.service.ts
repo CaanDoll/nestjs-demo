@@ -1,7 +1,7 @@
 import { BizFailedException } from '@common/middleware/biz-failed/biz-failed.exception';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { BizFailedCodeEnum } from '../../biz-failed/biz-failed.enum';
 import { UserModel } from './user.model';
 import { RedisService } from 'nestjs-redis';
