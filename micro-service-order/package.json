@@ -1,0 +1,19 @@
+{
+  "name": "micro-service-order",
+  "description": "订单",
+  "code": "1002",
+  "version": "0.0.1",
+  "scripts": {
+    "format": "prettier --write 'src/**/*.ts'",
+    "dev:order": "nodemon --watch 'src/**/*' -e ts --exec ts-node -r tsconfig-paths/register src/main.ts",
+    "build": "rimraf dist && tsc -p --removeComments --strict --skipLibCheck",
+    "startup": "node dist/main.js",
+    "lint": "tslint -p tsconfig.json -c tslint.json"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "prettier": "^1.15.3",
+    "ts-node": "8.1.0",
+    "tslint": "5.16.0"
+  }
+}
